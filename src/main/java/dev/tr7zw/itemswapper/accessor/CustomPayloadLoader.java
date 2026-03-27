@@ -18,7 +18,7 @@ public interface CustomPayloadLoader {
 
     //? if < 1.20.5 {
     /*
-    CustomPacketPayload resolveObject(ResourceLocation id, FriendlyByteBuf buffer);
+    CustomPacketPayload resolveObject(Identifier id, FriendlyByteBuf buffer);
     *///? }
 
 }

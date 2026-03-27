@@ -48,20 +48,27 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
 
     @Override
     public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
-        return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
+        //? if >= 26.1 {
+        return Optional.ofNullable(itemStack.get(net.minecraft.core.component.DataComponents.INSTRUMENT))
+                .map(net.minecraft.world.item.component.InstrumentComponent::instrument);
     }
-
-    @Shadow
-    protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack itemStack, Provider provider);
     //? } else {
     /*
-    @Override
-    public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
-        return getInstrument(itemStack);
+        return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
     }
     
     @Shadow
-    protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
+    protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack itemStack, Provider provider);
     *///? }
+       //? } else {
+       /*
+       @Override
+       public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
+           return getInstrument(itemStack);
+       }
+       
+       @Shadow
+       protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
+       *///? }
 
 }

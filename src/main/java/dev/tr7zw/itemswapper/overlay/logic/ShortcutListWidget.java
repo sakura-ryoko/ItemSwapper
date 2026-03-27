@@ -17,11 +17,10 @@ import net.minecraft.resources.*;
 
 public class ShortcutListWidget extends ItemGridWidget {
 
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ parentId;
+    private final Identifier parentId;
     private final List<Shortcut> list;
 
-    public ShortcutListWidget(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ parentId,
-            List<Shortcut> list, int x, int y) {
+    public ShortcutListWidget(Identifier parentId, List<Shortcut> list, int x, int y) {
         super(x, y);
         this.parentId = parentId;
         this.list = list.stream().filter(Shortcut::isVisible).toList();

@@ -32,17 +32,22 @@ public class BlockTextureManager {
     public void init() {
         colorMap.clear();
         BuiltInRegistries.BLOCK.entrySet().forEach(e -> {
-            //            System.out.println(e.getKey() + " " + e.getValue());
             BlockState state = e.getValue().getStateDefinition().any();
-            TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
-                    //? if >= 1.21.5 {
+            //? if >= 26.1 {
 
+            TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockStateModelSet()
+                    .getParticleMaterial(state).sprite();
+            //? } else {
+
+            /*TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
+                    //? if >= 1.21.5 {
+            
                     .particleIcon();
             //? } else {
-            /*
+            /^
                     .getParticleIcon();
+            ^///? }
             *///? }
-               //            System.out.println(sprite);
             if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
                     if (e.getKey()/*? >= 1.21.11 {*/ .identifier() /*?} else {*//* .location() *//*?}*/.toString()

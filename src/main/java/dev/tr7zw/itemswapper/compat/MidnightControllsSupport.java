@@ -1,6 +1,6 @@
-package dev.tr7zw.itemswapper.compat;
+//? if < 26.1 {
+/*package dev.tr7zw.itemswapper.compat;
 
-import org.aperlambda.lambdacommon.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -17,9 +17,9 @@ import eu.midnightdust.midnightcontrols.client.controller.PressAction;
 
 import eu.midnightdust.midnightcontrols.client.enums.ButtonState;
 //? } else {
-/*
+/^
 import eu.midnightdust.midnightcontrols.client.ButtonState;
-*///? }
+^///? }
 import net.minecraft.client.Minecraft;
 
 public class MidnightControllsSupport implements CompatHandler {
@@ -30,16 +30,16 @@ public class MidnightControllsSupport implements CompatHandler {
 
     @Override
     public void handle(@NotNull MidnightControlsClient mod) {
-        CATEGORY = InputManager.registerCategory(new Identifier("itemswapper:controlls"));
+        CATEGORY = InputManager.registerCategory(new org.aperlambda.lambdacommon.Identifier("itemswapper:controlls"));
         new ButtonBinding.Builder("key.itemswapper.itemswitcher").buttons(GLFW.GLFW_GAMEPAD_BUTTON_DPAD_UP)
                 .category(CATEGORY).linkKeybind(ItemSwapperSharedMod.instance.getKeybind())
                 //? if >= 1.21.0 {
 
                 .filter((buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -57,9 +57,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -79,9 +79,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -101,9 +101,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -123,9 +123,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -145,9 +145,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /*
+                /^
                         .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        *///? }
+                        ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -168,3 +168,4 @@ public class MidnightControllsSupport implements CompatHandler {
     }
 
 }
+*///? }

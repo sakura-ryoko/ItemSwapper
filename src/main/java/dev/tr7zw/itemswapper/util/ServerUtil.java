@@ -22,31 +22,29 @@ public class ServerUtil {
         //? }
     }
 
-    public static /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getResourceLocation(
-            String namespace, String path) {
+    public static Identifier getResourceLocation(String namespace, String path) {
         //? if >= 1.21.11 {
 
         return Identifier.fromNamespaceAndPath(namespace, path);
         //? } else if >= 1.21.0 {
         /*
-        return ResourceLocation.fromNamespaceAndPath(namespace, path);
+        return Identifier.fromNamespaceAndPath(namespace, path);
         *///? } else {
         /*
-         return new ResourceLocation(namespace, path);
+         return new Identifier(namespace, path);
         *///? }
     }
 
-    public static /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getResourceLocation(
-            String key) {
+    public static Identifier getResourceLocation(String key) {
         //? if >= 1.21.11 {
 
         return Identifier.parse(key);
         //? } else if >= 1.21.0 {
         /*
-        return ResourceLocation.parse(key);
+        return Identifier.parse(key);
         *///? } else {
         /*
-         return new ResourceLocation(key);
+         return new Identifier(key);
         *///? }
     }
 

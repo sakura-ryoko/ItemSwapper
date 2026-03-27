@@ -39,7 +39,7 @@ import net.minecraft.network.protocol.game.*;
 @Mixin(ServerboundCustomPayloadPacket.class)
 public class ServerboundCustomPayloadPacketMixin implements CustomPayloadLoader {
 
-    private static final Map<ResourceLocation, FriendlyByteBuf.Reader<? extends CustomPacketPayload>> ITEMSWAPPER_PACKETS = new HashMap<>() {
+    private static final Map<Identifier, FriendlyByteBuf.Reader<? extends CustomPacketPayload>> ITEMSWAPPER_PACKETS = new HashMap<>() {
         private static final long serialVersionUID = 1L;
 
         {
@@ -51,7 +51,7 @@ public class ServerboundCustomPayloadPacketMixin implements CustomPayloadLoader 
     //? if >= 1.20.2 {
     
       @Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
-      private static void readPayload(ResourceLocation id, FriendlyByteBuf buffer,
+      private static void readPayload(Identifier id, FriendlyByteBuf buffer,
               CallbackInfoReturnable<CustomPacketPayload> ci) {
           FriendlyByteBuf.Reader<? extends CustomPacketPayload> reader = ITEMSWAPPER_PACKETS.get(id);
           if (reader != null) {
@@ -61,7 +61,7 @@ public class ServerboundCustomPayloadPacketMixin implements CustomPayloadLoader 
       }
      //? }
 
-    public CustomPacketPayload resolveObject(ResourceLocation id, FriendlyByteBuf buffer) {
+    public CustomPacketPayload resolveObject(Identifier id, FriendlyByteBuf buffer) {
         FriendlyByteBuf.Reader<? extends CustomPacketPayload> reader = ITEMSWAPPER_PACKETS.get(id);
         if (reader != null) {
             return reader.apply(buffer);

@@ -37,7 +37,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
     public List<ItemListModifier> itemListModifiers = new ArrayList<>();
 
     @Override
-    public /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getFabricId() {
+    public Identifier getFabricId() {
         return getResourceLocation("itemswapper", "itemgroups");
     }
 
@@ -54,8 +54,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
                 InputStream stream = resourceRef.open();
                 JsonElement data = JsonParser.parseReader(new InputStreamReader(stream));
                 String ids = id.toString().replaceFirst("itemgroups/", "").replaceFirst(".json", "");
-                Entry</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, JsonElement> entry = new AbstractMap.SimpleEntry<>(
-                        getResourceLocation(ids), data);
+                Entry<Identifier, JsonElement> entry = new AbstractMap.SimpleEntry<>(getResourceLocation(ids), data);
                 processEntry(entry);
             } catch (Exception e) {
                 ItemSwapperBase.LOGGER.error("Error occurred while loading resource {}. {}", id.toString(),
@@ -71,8 +70,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         //ItemSwapperSharedMod.instance.getItemGroupManager().dumpUnmappedItems();
     }
 
-    private void processEntry(
-            Entry</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, JsonElement> entry) {
+    private void processEntry(Entry<Identifier, JsonElement> entry) {
         try {
             if (!entry.getKey().getNamespace().equals("itemswapper")) {
                 return;
@@ -160,8 +158,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         }
     }
 
-    private void processV2(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation,
-            JsonElement json) {
+    private void processV2(Identifier jsonLocation, JsonElement json) {
         if (!json.isJsonObject()) {
             ItemSwapperBase.LOGGER.error("Invalid data in {}", jsonLocation);
             return;
@@ -188,8 +185,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         }
     }
 
-    private void processList(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation,
-            JsonObject json) {
+    private void processList(Identifier jsonLocation, JsonObject json) {
         ItemList.Builder group = ItemList.builder().withId(jsonLocation);
         if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
@@ -229,8 +225,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         itemLists.add(group);
     }
 
-    private void processPalette(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation,
-            JsonObject json) {
+    private void processPalette(Identifier jsonLocation, JsonObject json) {
         Builder group = ItemGroup.builder().withId(jsonLocation);
         if (json.has("priority") && json.get("priority").isJsonPrimitive()) {
             group.withPriority(json.getAsJsonPrimitive("priority").getAsInt());
@@ -274,8 +269,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         itemGroups.add(group);
     }
 
-    private void processListModification(
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation, JsonObject json) {
+    private void processListModification(Identifier jsonLocation, JsonObject json) {
         ItemListModifier.Builder changes = ItemListModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
@@ -290,8 +284,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         itemListModifiers.add(changes.build());
     }
 
-    private void processPaletteModification(
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation, JsonObject json) {
+    private void processPaletteModification(Identifier jsonLocation, JsonObject json) {
         ItemGroupModifier.Builder changes = ItemGroupModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
@@ -306,8 +299,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         itemGroupModifiers.add(changes.build());
     }
 
-    private List<Shortcut> processShortcuts(
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation, JsonElement object) {
+    private List<Shortcut> processShortcuts(Identifier jsonLocation, JsonElement object) {
         if (object == null) {
             return Collections.emptyList();
         }
@@ -347,8 +339,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         return shortcuts;
     }
 
-    private ItemEntry[] processItems(
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation, JsonElement object) {
+    private ItemEntry[] processItems(Identifier jsonLocation, JsonElement object) {
         if (object == null) {
             return null;
         }
@@ -380,7 +371,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
                 if (item == Items.AIR) {
                     ItemSwapperBase.LOGGER.info("Unable to find " + resourceLocation + ", ignoring.");
                 }
-                /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link = null;
+                Identifier link = null;
                 if (obj.has("link") && obj.get("link").isJsonPrimitive()) {
                     try {
                         link = getResourceLocation((obj.get("link").getAsString()));
@@ -409,8 +400,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         return null;
     }
 
-    private void processCombined(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation,
-            JsonElement json) {
+    private void processCombined(Identifier jsonLocation, JsonElement json) {
         if (json == null) {
             return;
         }
@@ -443,8 +433,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         }
     }
 
-    private Item[] getItemArray(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ jsonLocation,
-            JsonElement json, boolean pallet) {
+    private Item[] getItemArray(Identifier jsonLocation, JsonElement json, boolean pallet) {
         if (json == null) {
             return null;
         }
@@ -482,11 +471,15 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
     public static class ResourceLoaderInit {
 
         public static void init() {
-            //? if >= 1.21.10 {
+            //? if >= 26.1 {
 
-            net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
+            net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
                     GeneralUtil.getResourceLocation("itemswapper:reloader"), new SwapperResourceLoader());
-            //? } else {
+            //? } else if >= 1.21.10 {
+
+            /*net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
+                    GeneralUtil.getResourceLocation("itemswapper:reloader"), new SwapperResourceLoader());
+            *///? } else {
             /*
             net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
                     .registerReloadListener(

@@ -40,7 +40,13 @@ public class RecordNameProvider implements NameProvider {
         //? if >= 1.21.2 {
 
         JukeboxPlayable data = item.getComponents().get(DataComponents.JUKEBOX_PLAYABLE);
-        Optional<Holder<JukeboxSong>> holder = data.song().unwrap(Minecraft.getInstance().level.registryAccess());
+        //? if >= 26.1 {
+
+        Optional<Holder<JukeboxSong>> holder = Optional.ofNullable(data.song());
+        //? } else {
+
+        /*Optional<Holder<JukeboxSong>> holder = data.song().unwrap(Minecraft.getInstance().level.registryAccess());
+         *///? }
         if (holder.isPresent()) {
             MutableComponent mutableComponent = ((JukeboxSong) holder.get().value()).description().copy();
             ComponentUtils.mergeStyles(mutableComponent, Style.EMPTY.withColor(ChatFormatting.GRAY));

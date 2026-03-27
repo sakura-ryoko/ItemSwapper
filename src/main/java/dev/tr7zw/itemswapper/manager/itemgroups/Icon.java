@@ -9,12 +9,10 @@ public sealed interface Icon {
     public record ItemIcon(ItemStack item, Component nameOverwrite) implements Icon {
     };
 
-    public record TextureIcon(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture,
-            Component name) implements Icon {
+    public record TextureIcon(Identifier texture, Component name) implements Icon {
     };
 
-    public record LinkIcon(ItemStack item, Component nameOverwrite,
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId) implements Icon {
+    public record LinkIcon(ItemStack item, Component nameOverwrite, Identifier nextId) implements Icon {
     };
 
 }

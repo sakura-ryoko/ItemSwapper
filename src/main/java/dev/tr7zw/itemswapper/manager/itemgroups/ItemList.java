@@ -8,14 +8,14 @@ import net.minecraft.world.item.Item;
 
 public class ItemList {
 
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
+    private final Identifier id;
     private final Component displayName;
     private final Item icon;
     private final Item[] items;
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
     private final boolean disableAutoLink;
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
+    private final Identifier link;
     private final List<Shortcut> shortcuts;
     private boolean paletteList = false;
 
@@ -32,7 +32,7 @@ public class ItemList {
         this.paletteList = builder.paletteList;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
+    public Identifier getId() {
         return id;
     }
 
@@ -60,7 +60,7 @@ public class ItemList {
         return ignoreItems;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getLink() {
+    public Identifier getLink() {
         return link;
     }
 
@@ -77,21 +77,21 @@ public class ItemList {
     }
 
     public static final class Builder {
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
+        private Identifier id;
         private Component displayName;
         private Item icon;
         private Item[] items;
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
         private boolean disableAutoLink;
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
+        private Identifier link;
         private List<Shortcut> shortcuts = Collections.emptyList();
         private boolean paletteList = false;
 
         private Builder() {
         }
 
-        public Builder withId(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id) {
+        public Builder withId(Identifier id) {
             this.id = id;
             return this;
         }
@@ -126,7 +126,7 @@ public class ItemList {
             return this;
         }
 
-        public Builder withLink(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link) {
+        public Builder withLink(Identifier link) {
             this.link = link;
             return this;
         }
@@ -141,7 +141,7 @@ public class ItemList {
             return this;
         }
 
-        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
+        public Identifier getId() {
             return id;
         }
 

@@ -52,7 +52,7 @@ import net.minecraft.world.item.ItemStack;
 
 //? if >= 1.20.0 {
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 //? } else {
 /*
@@ -226,11 +226,15 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    //? if >= 1.20.0 {
+    //? if >= 26.1 {
 
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-        //? } else {
+        //? } else if >= 1.20.0 {
+
+        /*public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+        *///? } else {
         /*
             public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(this, pose);

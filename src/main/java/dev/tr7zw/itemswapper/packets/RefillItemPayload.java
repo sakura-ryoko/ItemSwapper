@@ -16,11 +16,10 @@ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 
 public record RefillItemPayload(int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ ID = ServerUtil
-            .getResourceLocation(ItemSwapperMod.MODID, "refill");
+    public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "refill");
 
     @Override
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id() {
+    public Identifier id() {
         return ID;
     }
 

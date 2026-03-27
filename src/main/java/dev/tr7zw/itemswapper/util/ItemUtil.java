@@ -17,7 +17,6 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -89,9 +88,7 @@ public final class ItemUtil {
                 return false;
             }
             if (slot.inventory() == -1) {
-                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, minecraft.player);
+                swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
             } else {
                 if (ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
                     // Can't put a shulker into a shulker, so search a different spot
@@ -103,6 +100,19 @@ public final class ItemUtil {
             return true;
         }
         return false;
+    }
+
+    public static void swapWithSlot(int hudSlot) {
+        //? if >= 26.1 {
+
+        minecraft.gameMode.handleContainerInput(minecraft.player.inventoryMenu.containerId, hudSlot,
+                InventoryUtil.getSelectedId(minecraft.player.getInventory()),
+                net.minecraft.world.inventory.ContainerInput.SWAP, minecraft.player);
+        //? } else {
+
+        /*minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
+                InventoryUtil.getSelectedId(minecraft.player.getInventory()), net.minecraft.world.inventory.ClickType.SWAP, minecraft.player);
+        *///? }
     }
 
 }

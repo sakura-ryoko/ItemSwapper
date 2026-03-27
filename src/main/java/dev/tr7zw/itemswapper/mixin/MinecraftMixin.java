@@ -61,7 +61,13 @@ public class MinecraftMixin {
         return server.isPublished();
     }
 
+    //? if >= 26.1 {
+
+    @Inject(method = "pickBlockOrEntity", at = @At("HEAD"), cancellable = true)
+    //? } else {
+    /*
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
+    *///? }
     private void pickBlock(CallbackInfo ci) {
         if (screen instanceof ItemSwapperUI) {
             ci.cancel();
@@ -111,10 +117,13 @@ public class MinecraftMixin {
         };
     }
 
-    //? if >= 1.21.10 {
+    //? if >= 26.1 {
 
+    @Inject(method = "pickBlockOrEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    //? } else if >= 1.21.10 {
+    /*
     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
-    //? } else {
+    *///? } else {
     /*
      @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     *///? }

@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
-import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
@@ -14,11 +13,9 @@ import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 
-import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
-
+import dev.tr7zw.transition.loader.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -36,8 +33,8 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
     public void initModloader() {
         new ItemSwapperServerMod().onLoad();
         ClientTickEvents.START_CLIENT_TICK.register(event -> this.clientTick());
-        KeyBindingHelper.registerKeyBinding(keybind);
-        KeyBindingHelper.registerKeyBinding(openInventoryKeybind);
+        ModLoaderUtil.registerKeybind(keybind);
+        ModLoaderUtil.registerKeybind(openInventoryKeybind);
 
         // Register default resource pack
 
@@ -47,10 +44,13 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
 
-        FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
+        //? if < 26.0 {
+
+        /*FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
-            MidnightControlsCompat.HANDLERS.add(new MidnightControllsSupport());
+            eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat.HANDLERS.add(new dev.tr7zw.itemswapper.compat.MidnightControllsSupport());
         });
+        *///? }
 
         FabricLoader.getInstance().getModContainer("vivecraft").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding ViveCraft support...");

@@ -1,0 +1,13 @@
+stonecutter {
+    replacements.string(current.parsed >= "1.21.11") {
+        replace("org.aperlambda.lambdacommon.Identifier", "org.aperlambda.lambdacommon.Identifier") // Do not rename this
+        replace("clientboundCustomPayloadPacket.getIdentifier()", "clientboundCustomPayloadPacket.getIdentifier()") // Do not rename this
+        replace("serverboundCustomPayloadPacket.getIdentifier()", "serverboundCustomPayloadPacket.getIdentifier()") // Do not rename this
+    }
+    replacements.string(current.parsed >= "26.1") {
+        replace("PayloadTypeRegistryImpl.PLAY_C2S", "PayloadTypeRegistryImpl.SERVERBOUND_PLAY")
+        replace("PayloadTypeRegistryImpl.PLAY_S2C", "PayloadTypeRegistryImpl.CLIENTBOUND_PLAY")
+        replace("PayloadTypeRegistry.playS2C()", "PayloadTypeRegistry.clientboundPlay()")
+        replace("PayloadTypeRegistry.playC2S()", "PayloadTypeRegistry.serverboundPlay()")
+    }
+}

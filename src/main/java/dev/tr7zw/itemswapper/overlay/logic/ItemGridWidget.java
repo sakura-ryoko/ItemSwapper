@@ -11,13 +11,11 @@ import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 
 public abstract class ItemGridWidget implements GuiWidget {
 
     protected final Minecraft minecraft = Minecraft.getInstance();
     protected final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    protected final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
     protected final ConfigManager configManager = ConfigManager.getInstance();
     protected final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     protected final List<GuiSlot> slots = new ArrayList<>();

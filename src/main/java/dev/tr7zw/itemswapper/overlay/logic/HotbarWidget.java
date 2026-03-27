@@ -13,8 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class HotbarWidget extends InventoryAbstractWidget {
 
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/hotbar.png");
+    private static final Identifier BACKGROUND_LOCATION = getResourceLocation("itemswapper", "textures/gui/hotbar.png");
 
     public HotbarWidget(int x, int y) {
         super(x, y);

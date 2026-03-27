@@ -40,7 +40,14 @@ public class ShulkerHelper {
 
         if (shulker.has(net.minecraft.core.component.DataComponents.CONTAINER)) {
             NonNullList<ItemStack> list = NonNullList.create();
+            //? if >= 26.1 {
+
+            list.addAll(
+                    shulker.get(net.minecraft.core.component.DataComponents.CONTAINER).allItemsCopyStream().toList());
+            //? } else {
+            /*
             list.addAll(shulker.get(net.minecraft.core.component.DataComponents.CONTAINER).stream().toList());
+            *///? }
             return list;
         }
         //? }

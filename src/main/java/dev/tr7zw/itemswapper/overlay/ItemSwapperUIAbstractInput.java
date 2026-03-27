@@ -17,8 +17,11 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
 
     //? if >= 1.21.6 {
 
-    @Override
-    protected void renderBlurredBackground(net.minecraft.client.gui.GuiGraphics guiGraphics) {
+    //? if < 26.1 {
+
+    /*@Override
+    *///? }
+    protected void renderBlurredBackground(net.minecraft.client.gui.GuiGraphicsExtractor guiGraphics) {
         // No blur
     }
     //? }

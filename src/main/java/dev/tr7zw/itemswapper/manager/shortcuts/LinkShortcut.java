@@ -21,18 +21,17 @@ import net.minecraft.world.item.Items;
 public class LinkShortcut implements Shortcut {
 
     private final ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId;
+    private final Identifier nextId;
     private final Component displayName;
     private final Item displayIcon;
 
-    public LinkShortcut(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId) {
+    public LinkShortcut(Identifier nextId) {
         this.nextId = nextId;
         this.displayName = null;
         this.displayIcon = null;
     }
 
-    public LinkShortcut(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId,
-            Component displayName, Item icon) {
+    public LinkShortcut(Identifier nextId, Component displayName, Item icon) {
         this.nextId = nextId;
         this.displayName = displayName;
         this.displayIcon = icon;

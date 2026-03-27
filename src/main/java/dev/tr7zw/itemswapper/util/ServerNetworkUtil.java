@@ -85,13 +85,12 @@ public class ServerNetworkUtil {
         *///? }
     }
 
-    public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type,
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id,
+    public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type, Identifier id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder) {
         //? if > 1.20.5 {
 
-        if (PayloadTypeRegistryImpl.PLAY_S2C.get(id) == null) {
-            PayloadTypeRegistry.playS2C().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
+        if (PayloadTypeRegistryImpl.CLIENTBOUND_PLAY.get(id) == null) {
+            PayloadTypeRegistry.clientboundPlay().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
 
                 @Override
                 public T decode(FriendlyByteBuf buffer) {
@@ -108,14 +107,13 @@ public class ServerNetworkUtil {
         //? }
     }
 
-    public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type,
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id,
+    public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type, Identifier id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             BiConsumer<T, ServerPlayer> action) {
         //? if > 1.20.5 {
 
-        if (PayloadTypeRegistryImpl.PLAY_C2S.get(id) == null) {
-            PayloadTypeRegistry.playC2S().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
+        if (PayloadTypeRegistryImpl.SERVERBOUND_PLAY.get(id) == null) {
+            PayloadTypeRegistry.serverboundPlay().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
 
                 @Override
                 public T decode(FriendlyByteBuf buffer) {

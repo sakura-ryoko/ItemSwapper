@@ -15,11 +15,10 @@ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 
 public record DisableModPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ ID = ServerUtil
-            .getResourceLocation(ItemSwapperMod.MODID, "disable");
+    public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "disable");
 
     @Override
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id() {
+    public Identifier id() {
         return ID;
     }
 

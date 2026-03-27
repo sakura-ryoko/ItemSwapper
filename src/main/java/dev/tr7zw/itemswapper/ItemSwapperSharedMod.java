@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper;
 
 import java.util.List;
 
+import dev.tr7zw.transition.mc.*;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -22,8 +23,6 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
-import dev.tr7zw.transition.mc.ComponentProvider;
-import dev.tr7zw.transition.mc.GeneralUtil;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -131,29 +130,29 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         // skip this check for alwaysInventory mode
         if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()
                 && !configManager.getConfig().alwaysInventory) {
-            minecraft.player.displayClientMessage(ComponentProvider
-                    .translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED), true);
+            ClientUtil.sendActionBarMessage(ComponentProvider.translatable("text.itemswapper.resourcepack.notSelected")
+                    .withStyle(ChatFormatting.RED));
         }
 
         if (!pressed && isModDisabled()) {
             pressed = true;
-            minecraft.gui.setOverlayMessage(
-                    ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+            ClientUtil.sendActionBarMessage(
+                    ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED));
             return;
         }
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
         if (!pressed) {
             if (isDisabledByPlayer()) {
-                minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.disabledByPlayer")
-                        .withStyle(ChatFormatting.RED), false);
+                ClientUtil.sendActionBarMessage(ComponentProvider.translatable("text.itemswapper.disabledByPlayer")
+                        .withStyle(ChatFormatting.RED));
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
                 if (!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
-                    minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.usedwhitelist")
-                            .withStyle(ChatFormatting.GOLD), false);
+                    ClientUtil.sendActionBarMessage(ComponentProvider.translatable("text.itemswapper.usedwhitelist")
+                            .withStyle(ChatFormatting.GOLD));
                 }
                 if (couldOpenScreen()) {
                     pressed = true;

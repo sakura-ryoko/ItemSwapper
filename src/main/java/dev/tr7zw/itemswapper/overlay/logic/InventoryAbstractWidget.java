@@ -15,7 +15,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import net.minecraft.world.inventory.ClickType;
 
 public abstract class InventoryAbstractWidget extends ItemGridWidget {
 
@@ -59,9 +58,7 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
                     return true;
                 }
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
-                        this.minecraft.player);
+                ItemUtil.swapWithSlot(hudSlot);
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
                 ItemSwapperSharedMod.instance

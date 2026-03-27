@@ -16,13 +16,13 @@ import net.minecraft.world.item.Item;
  */
 public class ItemGroup {
 
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
+    private final Identifier id;
     private final Component displayName;
     private final Item icon;
     private final int priority;
     private final boolean disableAutoLink;
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink;
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink;
+    private final Identifier fallbackLink;
+    private final Identifier forcedLink;
     private final ItemEntry[] items;
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
@@ -42,7 +42,7 @@ public class ItemGroup {
         this.shortcuts = builder.shortcuts;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
+    public Identifier getId() {
         return id;
     }
 
@@ -58,11 +58,11 @@ public class ItemGroup {
         return priority;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getFallbackLink() {
+    public Identifier getFallbackLink() {
         return fallbackLink;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getForcedLink() {
+    public Identifier getForcedLink() {
         return forcedLink;
     }
 
@@ -98,13 +98,13 @@ public class ItemGroup {
     }
 
     public static final class Builder {
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
+        private Identifier id;
         private Component displayName;
         private Item icon;
         private int priority;
         private boolean disableAutoLink;
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink;
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink;
+        private Identifier fallbackLink;
+        private Identifier forcedLink;
         private ItemEntry[] items;
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
@@ -113,7 +113,7 @@ public class ItemGroup {
         private Builder() {
         }
 
-        public Builder withId(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id) {
+        public Builder withId(Identifier id) {
             this.id = id;
             return this;
         }
@@ -138,14 +138,12 @@ public class ItemGroup {
             return this;
         }
 
-        public Builder withFallbackLink(
-                /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink) {
+        public Builder withFallbackLink(Identifier fallbackLink) {
             this.fallbackLink = fallbackLink;
             return this;
         }
 
-        public Builder withForcedLink(
-                /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink) {
+        public Builder withForcedLink(Identifier forcedLink) {
             this.forcedLink = forcedLink;
             return this;
         }
@@ -170,7 +168,7 @@ public class ItemGroup {
             return this;
         }
 
-        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
+        public Identifier getId() {
             return id;
         }
 
@@ -186,11 +184,11 @@ public class ItemGroup {
             return disableAutoLink;
         }
 
-        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getFallbackLink() {
+        public Identifier getFallbackLink() {
             return fallbackLink;
         }
 
-        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getForcedLink() {
+        public Identifier getForcedLink() {
             return forcedLink;
         }
 

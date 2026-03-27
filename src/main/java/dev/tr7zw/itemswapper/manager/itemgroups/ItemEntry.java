@@ -7,16 +7,15 @@ import net.minecraft.world.item.Item;
 public class ItemEntry {
 
     private final Item item;
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
+    private final Identifier link;
     private final Component nameOverwride;
     private final boolean actAsLink;
 
-    public ItemEntry(Item item, /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link) {
+    public ItemEntry(Item item, Identifier link) {
         this(item, link, null, false);
     }
 
-    public ItemEntry(Item item, /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link,
-            Component nameOverwride, boolean actAsLink) {
+    public ItemEntry(Item item, Identifier link, Component nameOverwride, boolean actAsLink) {
         this.item = item;
         this.link = link;
         this.nameOverwride = nameOverwride;
@@ -27,7 +26,7 @@ public class ItemEntry {
         return item;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getLink() {
+    public Identifier getLink() {
         return link;
     }
 

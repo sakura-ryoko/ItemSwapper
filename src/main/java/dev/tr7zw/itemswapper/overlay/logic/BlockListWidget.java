@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.Block;
 
 public class BlockListWidget extends ItemGridWidget {
 
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/inventory.png");
+    private static final Identifier BACKGROUND_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/inventory.png");
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
     private List<Block> blocks;

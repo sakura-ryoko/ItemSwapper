@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 
 //? if >= 1.20.0 {
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 //? } else {
 /*
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,10 +34,16 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         super(abstractContainerMenu, inventory, component);
     }
 
-    @Inject(method = "render", at = @At("HEAD"))
-    //? if >= 1.20.0 {
+    //? if >= 26.1 {
 
-    public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
+    @Inject(method = "extractBackground", at = @At("HEAD"))
+    //? } else {
+
+    /*@Inject(method = "render", at = @At("HEAD"))
+     *///? }
+        //? if >= 1.20.0 {
+
+    public void render(GuiGraphicsExtractor graphics, int i, int j, float f, CallbackInfo ci) {
         //? } else {
         /*
             public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
@@ -56,6 +62,13 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         overlay.setHideCursor(true);
         overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting
                                                                                                  // values
-        overlay.render(graphics, 0, 0, f);
+
+        //? if >= 26.1 {
+
+        overlay.extractRenderState(graphics, 0, 0, f);
+        //? } else {
+
+        /*overlay.render(graphics, 0, 0, f);
+        *///? }
     }
 }

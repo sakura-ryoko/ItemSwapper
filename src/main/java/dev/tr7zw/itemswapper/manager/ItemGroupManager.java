@@ -19,9 +19,9 @@ import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 public class ItemGroupManager {
 
-    private final Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemGroup> groupMapping = new HashMap<>();
+    private final Map<Identifier, ItemGroup> groupMapping = new HashMap<>();
     private final Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
-    private final Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemList> listKeyMapping = new HashMap<>();
+    private final Map<Identifier, ItemList> listKeyMapping = new HashMap<>();
     private final Map<Item, ItemList> listMapping = new HashMap<>();
     private final Map<Item, ItemGroup> lastPicked = new HashMap<>();
 
@@ -163,7 +163,7 @@ public class ItemGroupManager {
         return null;
     }
 
-    public Page getPage(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ location) {
+    public Page getPage(Identifier location) {
         if (groupMapping.containsKey(location)) {
             return new ItemGroupPage(groupMapping.get(location));
         } else if (listKeyMapping.containsKey(location)) {

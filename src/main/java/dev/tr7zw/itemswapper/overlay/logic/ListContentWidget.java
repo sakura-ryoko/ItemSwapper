@@ -18,7 +18,6 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.*;
 
 public class ListContentWidget extends ItemGridWidget {
@@ -104,10 +103,7 @@ public class ListContentWidget extends ItemGridWidget {
                 return true;
             }
             if (entry.inventory() == -1) {
-                int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
-                        this.minecraft.player);
+                ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(entry.slot()));
             } else {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }

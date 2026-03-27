@@ -5,7 +5,7 @@ import net.minecraft.world.item.Item;
 
 public class ItemListModifier {
 
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
+    private final Identifier target;
     private final Item[] addItems;
     private final Item[] removeItems;
 
@@ -15,7 +15,7 @@ public class ItemListModifier {
         this.removeItems = builder.removeItems;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getTarget() {
+    public Identifier getTarget() {
         return target;
     }
 
@@ -32,14 +32,14 @@ public class ItemListModifier {
     }
 
     public static final class Builder {
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
+        private Identifier target;
         private Item[] addItems;
         private Item[] removeItems;
 
         private Builder() {
         }
 
-        public Builder withTarget(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target) {
+        public Builder withTarget(Identifier target) {
             this.target = target;
             return this;
         }

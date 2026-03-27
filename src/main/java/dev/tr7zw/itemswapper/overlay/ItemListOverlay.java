@@ -26,33 +26,31 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 //? if >= 1.20.0 {
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 //? } else {
 /*
 import com.mojang.blaze3d.vertex.PoseStack;
 *///? }
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ SELECTION_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/selection.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BOTTOM_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_bottom_slot.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_middle_slot.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ TOP_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_top_slot.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ SINGLE_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_single_slot.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_TOP_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_middle_continue_top_slot.png");
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_BOTTOM_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/list_middle_continue_bottom_slot.png");
+    private static final Identifier SELECTION_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/selection.png");
+    private static final Identifier BOTTOM_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/list_bottom_slot.png");
+    private static final Identifier MIDDLE_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/list_middle_slot.png");
+    private static final Identifier TOP_LOCATION = getResourceLocation("itemswapper", "textures/gui/list_top_slot.png");
+    private static final Identifier SINGLE_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/list_single_slot.png");
+    private static final Identifier MIDDLE_TOP_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/list_middle_continue_top_slot.png");
+    private static final Identifier MIDDLE_BOTTOM_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/list_middle_continue_bottom_slot.png");
 
     private static final double entrySize = 33;
     private static final int yOffset = 75;
@@ -72,11 +70,15 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    //? if >= 1.20.0 {
+    //? if >= 26.1 {
 
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-        //? } else {
+        //? } else if >= 1.20.0 {
+
+        /*public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+        *///? } else {
         /*
             public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(this, pose);
@@ -108,7 +110,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             boolean endBottom = i == 0;
             boolean midBottom = i == start;
             boolean midTop = i == start + limit - 1;
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ background = MIDDLE_LOCATION;
+            Identifier background = MIDDLE_LOCATION;
             if (endTop && endBottom) {
                 background = SINGLE_LOCATION;
             } else if (endBottom) {
@@ -185,10 +187,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
                 return true;
             }
             if (slot.inventory() == -1) {
-                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
-                        this.minecraft.player);
+                ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
             } else {
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
@@ -197,8 +196,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(RenderContext graphics,
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ background, int id, int x, int y,
+    private void renderEntry(RenderContext graphics, Identifier background, int id, int x, int y,
             List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
         graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code

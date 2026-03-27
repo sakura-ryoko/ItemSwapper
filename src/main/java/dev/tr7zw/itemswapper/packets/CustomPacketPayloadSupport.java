@@ -17,7 +17,7 @@ public interface CustomPacketPayloadSupport extends CustomPacketPayload {
 
     //? if >= 1.20.5 {
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id();
+    public Identifier id();
 
     public default Type<? extends CustomPacketPayload> type() {
         return new Type<CustomPacketPayload>(id());

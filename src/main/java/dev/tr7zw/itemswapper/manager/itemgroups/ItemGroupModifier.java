@@ -4,7 +4,7 @@ import net.minecraft.resources.*;
 
 public class ItemGroupModifier {
 
-    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
+    private final Identifier target;
     private final ItemEntry[] addItems;
     private final ItemEntry[] removeItems;
 
@@ -14,7 +14,7 @@ public class ItemGroupModifier {
         this.removeItems = builder.removeItems;
     }
 
-    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getTarget() {
+    public Identifier getTarget() {
         return target;
     }
 
@@ -31,14 +31,14 @@ public class ItemGroupModifier {
     }
 
     public static final class Builder {
-        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
+        private Identifier target;
         private ItemEntry[] addItems;
         private ItemEntry[] removeItems;
 
         private Builder() {
         }
 
-        public Builder withTarget(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target) {
+        public Builder withTarget(Identifier target) {
             this.target = target;
             return this;
         }

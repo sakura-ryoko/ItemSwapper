@@ -13,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class InventoryWidget extends InventoryAbstractWidget {
 
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
-            "itemswapper", "textures/gui/inventory.png");
+    private static final Identifier BACKGROUND_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/inventory.png");
 
     public InventoryWidget(int x, int y) {
         super(x, y);

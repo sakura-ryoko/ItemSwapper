@@ -12,13 +12,12 @@ public class WidgetArea {
     private int backgroundSizeY;
     private int backgroundTextureSizeX;
     private int backgroundTextureSizeY;
-    private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ backgroundTexture;
+    private Identifier backgroundTexture;
     private int mouseBoundsX;
     private int mouseBoundsY;
 
     public WidgetArea(int backgroundSizeX, int backgroundSizeY, int backgroundTextureSizeX, int backgroundTextureSizeY,
-            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ backgroundTexture, int mouseBoundsX,
-            int mouseBoundsY) {
+            Identifier backgroundTexture, int mouseBoundsX, int mouseBoundsY) {
         this.backgroundSizeX = backgroundSizeX;
         this.backgroundSizeY = backgroundSizeY;
         this.backgroundTextureSizeX = backgroundTextureSizeX;

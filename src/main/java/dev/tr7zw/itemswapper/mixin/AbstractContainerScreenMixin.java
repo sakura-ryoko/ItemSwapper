@@ -20,7 +20,7 @@ import net.minecraft.world.inventory.ChestMenu;
 
 //? if >= 1.20.0 {
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 //? } else {
 /*
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -58,10 +58,16 @@ public class AbstractContainerScreenMixin extends Screen {
         }
     }
 
-    @Inject(method = "render", at = @At("TAIL"))
-    //? if >= 1.20.0 {
+    //? if >= 26.1 {
 
-    private void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo info) {
+    @Inject(method = "extractContents", at = @At("TAIL"))
+    //? } else {
+    /*
+    @Inject(method = "render", at = @At("TAIL"))
+    *///? }
+       //? if >= 1.20.0 {
+
+    private void render(GuiGraphicsExtractor graphics, int i, int j, float f, CallbackInfo info) {
         //? } else {
         /*
             private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {

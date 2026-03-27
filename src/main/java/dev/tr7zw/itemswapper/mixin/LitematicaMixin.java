@@ -25,16 +25,18 @@ import net.minecraft.world.level.block.state.BlockState;
 @Mixin(WorldUtils.class)
 public class LitematicaMixin {
 
-    @Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
+    //? if < 26.1 {
+
+    /*@Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
     private static void doSchematicWorldPickBlockHook(boolean closest, Minecraft mc,
             CallbackInfoReturnable<Boolean> ci) {
         if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(mc.player.getMainHandItem().getItem());
-
+    
             if (list != null && (list.getId().equals(getResourceLocation("itemswapper", "v2/weapons"))
                     || list.getId().equals(getResourceLocation("itemswapper", "v2/tools")))) {
-
+    
                 if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip Litematica logic
                     ci.setReturnValue(true);
@@ -45,7 +47,7 @@ public class LitematicaMixin {
             }
         }
         // pickblock from shulker
-
+    
         BlockPos pos;
         pos = RayTraceUtils.getSchematicWorldTraceIfClosest(mc.level, mc.player, 6);
         if (pos != null) {
@@ -59,4 +61,5 @@ public class LitematicaMixin {
             }
         }
     }
+    *///? }
 }

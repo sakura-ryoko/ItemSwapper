@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 
 //? if >= 1.20.0 {
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 //? } else {
 /*
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -42,8 +42,7 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     public class CopyToClipboard extends ImageButton {
     *///? }
 
-    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture = getResourceLocation(
-            ItemSwapperBase.MODID, "textures/gui/button.png");
+    private static final Identifier texture = getResourceLocation(ItemSwapperBase.MODID, "textures/gui/button.png");
 
     private static final int TEXTURE_WIDTH = 10;
     private static final int TEXTURE_HEIGHT = 18;
@@ -94,12 +93,17 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     @Override
-    //? if >= 1.21.11 {
-    public void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float deltaTicks) {
+    //? if >= 26.1 {
+
+    public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(graphics);
-        //? } else if >= 1.20.0 {
+        //? } else if >= 1.21.11 {
+
+        /*public void renderContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
+        RenderContext renderContext = new RenderContext(graphics);
+        *///? } else if >= 1.20.0 {
         /*
-        public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float deltaTicks) {
+        public void renderWidget(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(graphics);
         *///? } else {
         /*
