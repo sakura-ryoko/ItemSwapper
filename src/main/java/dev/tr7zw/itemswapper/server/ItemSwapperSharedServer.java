@@ -19,8 +19,10 @@ public abstract class ItemSwapperSharedServer {
             handler.registerClientCustomPacket(RefillSupportPayload.INSTANCE);
             handler.registerClientCustomPacket(DisableModPayload.INSTANCE);
             // Server packets
-            handler.registerServerCustomPacket(SwapItemPayload.INSTANCE, (payload, player) -> getItemHandler().swapItem(player, payload));
-            handler.registerServerCustomPacket(RefillItemPayload.INSTANCE, (payload, player) -> getItemHandler().refillSlot(player, payload));
+            handler.registerServerCustomPacket(SwapItemPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().swapItem(player, payload));
+            handler.registerServerCustomPacket(RefillItemPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().refillSlot(player, payload));
         });
     }
 

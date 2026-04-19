@@ -6,15 +6,7 @@ import dev.tr7zw.transition.loader.networking.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.*;
 
-//? if >= 1.20.2 {
-
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-//? } else {
-/*
-import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
-*///? }
-
-public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
+public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayloadSupport {
 
     public static final SwapItemPayload INSTANCE = new SwapItemPayload(0, 0);
     public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "swap");

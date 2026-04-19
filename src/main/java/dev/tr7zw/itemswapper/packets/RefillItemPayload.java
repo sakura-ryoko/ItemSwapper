@@ -6,16 +6,7 @@ import dev.tr7zw.transition.loader.networking.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.*;
 
-//? if >= 1.20.2 {
-
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-
-//? } else {
-/*
-import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
-*///? }
-
-public record RefillItemPayload(int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
+public record RefillItemPayload(int slot) implements CustomPacketPayloadSupport {
 
     public static final RefillItemPayload INSTANCE = new RefillItemPayload(0);
     public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "refill");
