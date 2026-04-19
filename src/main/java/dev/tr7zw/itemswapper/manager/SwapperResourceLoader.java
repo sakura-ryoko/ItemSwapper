@@ -480,8 +480,8 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
             /*net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
                     GeneralUtil.getResourceLocation("itemswapper:reloader"), new SwapperResourceLoader());
             *///? } else {
-            /*
-            net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
+
+            /*net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
                     .registerReloadListener(
                             (net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener) new SwapperResourceLoader());
             *///? }

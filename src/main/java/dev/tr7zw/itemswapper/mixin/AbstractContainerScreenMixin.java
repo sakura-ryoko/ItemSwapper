@@ -62,8 +62,8 @@ public class AbstractContainerScreenMixin extends Screen {
 
     @Inject(method = "extractContents", at = @At("TAIL"))
     //? } else {
-    /*
-    @Inject(method = "render", at = @At("TAIL"))
+
+    /*@Inject(method = "render", at = @At("TAIL"))
     *///? }
        //? if >= 1.20.0 {
 

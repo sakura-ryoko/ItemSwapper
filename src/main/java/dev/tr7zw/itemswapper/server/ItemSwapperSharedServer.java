@@ -1,15 +1,8 @@
 package dev.tr7zw.itemswapper.server;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import dev.tr7zw.itemswapper.packets.DisableModPayload;
-import dev.tr7zw.itemswapper.packets.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
-import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
-import dev.tr7zw.itemswapper.packets.SwapItemPayload;
-import dev.tr7zw.itemswapper.util.ServerNetworkUtil;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.loader.networking.*;
+import org.apache.logging.log4j.*;
 
 public abstract class ItemSwapperSharedServer {
 
@@ -20,19 +13,14 @@ public abstract class ItemSwapperSharedServer {
     public void onLoad() {
         INSTANCE = this;
         LOGGER.info("Loading ItemSwapper server support.");
-        ServerPlayConnectionEvents.INIT.register((phase, init) -> {
-            ServerNetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,
-                    b -> new ShulkerSupportPayload(b), (p, b) -> p.write(b));
-            ServerNetworkUtil.registerClientCustomPacket(RefillSupportPayload.class, RefillSupportPayload.ID,
-                    b -> new RefillSupportPayload(b), (p, b) -> p.write(b));
-            ServerNetworkUtil.registerClientCustomPacket(DisableModPayload.class, DisableModPayload.ID,
-                    b -> new DisableModPayload(b), (p, b) -> p.write(b));
-            ServerNetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID,
-                    b -> new SwapItemPayload(b), (p, b) -> p.write(b),
-                    (payload, player) -> getItemHandler().swapItem(player, payload));
-            ServerNetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
-                    b -> new RefillItemPayload(b), (p, b) -> p.write(b),
-                    (payload, player) -> getItemHandler().refillSlot(player, payload));
+        ServerNetworkUtil.registerPackets(handler -> {
+            // Client packets
+            handler.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE);
+            handler.registerClientCustomPacket(RefillSupportPayload.INSTANCE);
+            handler.registerClientCustomPacket(DisableModPayload.INSTANCE);
+            // Server packets
+            handler.registerServerCustomPacket(SwapItemPayload.INSTANCE, (payload, player) -> getItemHandler().swapItem(player, payload));
+            handler.registerServerCustomPacket(RefillItemPayload.INSTANCE, (payload, player) -> getItemHandler().refillSlot(player, payload));
         });
     }
 

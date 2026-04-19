@@ -14,8 +14,8 @@ public class ServerUtil {
 
         // return ItemStack.isSame(a, b);
         //? } else if <= 1.20.4 {
-        /*
-        return ItemStack.isSameItemSameTags(a, b);
+
+        /*return ItemStack.isSameItemSameTags(a, b);
         *///? } else {
 
         return ItemStack.isSameItemSameComponents(a, b);
@@ -27,11 +27,11 @@ public class ServerUtil {
 
         return Identifier.fromNamespaceAndPath(namespace, path);
         //? } else if >= 1.21.0 {
-        /*
-        return Identifier.fromNamespaceAndPath(namespace, path);
+
+        /*return Identifier.fromNamespaceAndPath(namespace, path);
         *///? } else {
-        /*
-         return new Identifier(namespace, path);
+
+        /*return new Identifier(namespace, path);
         *///? }
     }
 
@@ -40,11 +40,11 @@ public class ServerUtil {
 
         return Identifier.parse(key);
         //? } else if >= 1.21.0 {
-        /*
-        return Identifier.parse(key);
+
+        /*return Identifier.parse(key);
         *///? } else {
-        /*
-         return new Identifier(key);
+
+        /*return new Identifier(key);
         *///? }
     }
 

@@ -32,8 +32,8 @@ public class KeyboardHandlerMixin {
     private void keyPress(long l, int i, net.minecraft.client.input.KeyEvent keyEvent, CallbackInfo ci) {
         InputConstants.Key key = InputConstants.getKey(keyEvent);
         //? } else {
-        /*
-            public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
+
+        /*public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
         InputConstants.Key key = InputConstants.getKey(i, j);
         *///? }
            // restore movement, simulate "passEvents"
@@ -46,24 +46,24 @@ public class KeyboardHandlerMixin {
                 return;
             }
             //? } else {
-            /*
-            if (!configManager.getConfig().allowWalkingWithUI
+
+            /*if (!configManager.getConfig().allowWalkingWithUI
                     && !(ItemSwapperSharedMod.instance.getKeybind().matches(i, j)
                             || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(i, j))) {
                 return;
             }
             *///? }
                //? if < 1.21.10 {
-               /*
-               if (k == 0) {
-                   KeyMapping.set(key, false);
-               } else {
-                   *///? }
+
+            /*if (k == 0) {
+                KeyMapping.set(key, false);
+            } else {
+                *///? }
             boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
             //? if < 1.21.10 {
-            /*
-                        .getWindow()
-                *///? }
+
+            /*.getWindow()
+            *///? }
                     , 292);
             if (bl2) {
                 KeyMapping.set(key, false);
@@ -72,8 +72,8 @@ public class KeyboardHandlerMixin {
                 KeyMapping.click(key);
             }
             //? if < 1.21.10 {
-            /*
-            }
+
+            /*}
             *///? }
         }
     }

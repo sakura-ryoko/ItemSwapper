@@ -266,21 +266,21 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
             //? } else if >= 1.21.2 {
 
-            // RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-            //? } else {
-            /*
-            RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+            /*RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+            *///? } else {
+
+            /*RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             *///? }
                //? if < 1.21.6 {
-               /*
-               renderContext.getPose().pushPose();
-               renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
-               *///? }
+
+            /*renderContext.getPose().pushPose();
+            renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
+            *///? }
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             //? if < 1.21.6 {
-            /*
-            renderContext.getPose().popPose();
+
+            /*renderContext.getPose().popPose();
             *///? }
         }
     }

@@ -105,8 +105,8 @@ public final class RenderHelper {
             SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
             //? if < 1.21.6 {
-            /*
-            graphics.getPose().pushPose();
+
+            /*graphics.getPose().pushPose();
             graphics.getPose().translate(0, 0, 200);
             *///? }
             ItemStack copy = arg2.copy();
@@ -114,8 +114,8 @@ public final class RenderHelper {
             if (effect != SlotEffect.NONE) {
                 RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
                 //? if < 1.21.6 {
-                /*
-                graphics.getPose().popPose();
+
+                /*graphics.getPose().popPose();
                 *///? }
                 return;
             }
@@ -124,10 +124,10 @@ public final class RenderHelper {
 
             //? } else if >= 1.21.2 {
 
-            // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
-            //? } else {
-            /*
-            com.mojang.blaze3d.systems.RenderSystem
+            /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            *///? } else {
+
+            /*com.mojang.blaze3d.systems.RenderSystem
                     .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             *///? }
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
@@ -135,8 +135,8 @@ public final class RenderHelper {
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
             //? if < 1.21.6 {
-            /*
-            graphics.getPose().popPose();
+
+            /*graphics.getPose().popPose();
             *///? }
         }
     }
@@ -177,8 +177,8 @@ public final class RenderHelper {
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
         //? if <= 1.20.4 {
-        /*
-        ChatFormatting rarityColor = arg2.getRarity().color;
+
+        /*ChatFormatting rarityColor = arg2.getRarity().color;
         *///? } else {
 
         ChatFormatting rarityColor = arg2.getRarity().color();

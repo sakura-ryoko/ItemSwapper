@@ -20,8 +20,8 @@ import net.minecraft.world.item.InstrumentItem;
 
 import net.minecraft.world.item.Items;
 //? } else {
-/*
-import net.minecraft.world.item.RecordItem;
+
+/*import net.minecraft.world.item.RecordItem;
 *///? }
 
 public class MixinTests {
@@ -46,8 +46,8 @@ public class MixinTests {
 
         objenesis.newInstance(Items.class);
         //? } else {
-        /*
-        objenesis.newInstance(RecordItem.class);
+
+        /*objenesis.newInstance(RecordItem.class);
         *///? }
         objenesis.newInstance(ServerGamePacketListenerImpl.class);
     }

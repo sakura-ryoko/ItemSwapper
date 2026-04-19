@@ -37,9 +37,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -57,9 +57,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -79,9 +79,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -101,9 +101,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -123,9 +123,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -145,9 +145,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override

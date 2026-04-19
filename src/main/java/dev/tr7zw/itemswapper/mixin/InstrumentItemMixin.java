@@ -19,8 +19,8 @@ import net.minecraft.world.item.ItemStack;
 
 import net.minecraft.core.HolderLookup.Provider;
 //? } else {
-/*
-import net.minecraft.tags.TagKey;
+
+/*import net.minecraft.tags.TagKey;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,8 +32,8 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
     private Set<Item> items = new HashSet<>();
 
     //? if < 1.21.2 {
-    /*
-    @Inject(method = "<init>", at = @At("RETURN"))
+
+    /*@Inject(method = "<init>", at = @At("RETURN"))
     public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
         items.add((Item) (Object) this);
     }
@@ -53,22 +53,22 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
                 .map(net.minecraft.world.item.component.InstrumentComponent::instrument);
     }
     //? } else {
-    /*
-        return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
+
+    /*return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
     }
     
     @Shadow
     protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack itemStack, Provider provider);
     *///? }
        //? } else {
-       /*
-       @Override
-       public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
-           return getInstrument(itemStack);
-       }
-       
-       @Shadow
-       protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
-       *///? }
+
+    /*@Override
+    public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
+        return getInstrument(itemStack);
+    }
+    
+    @Shadow
+    protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
+    *///? }
 
 }

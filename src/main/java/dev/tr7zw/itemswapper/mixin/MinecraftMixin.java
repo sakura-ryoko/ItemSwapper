@@ -65,8 +65,8 @@ public class MinecraftMixin {
 
     @Inject(method = "pickBlockOrEntity", at = @At("HEAD"), cancellable = true)
     //? } else {
-    /*
-    @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
+
+    /*@Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     *///? }
     private void pickBlock(CallbackInfo ci) {
         if (screen instanceof ItemSwapperUI) {
@@ -124,8 +124,8 @@ public class MinecraftMixin {
     /*
     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     *///? } else {
-    /*
-     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+
+    /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     *///? }
     private void pickBlockShulkerSupport(CallbackInfo ci) {
         boolean creative = player.getAbilities().instabuild;
@@ -133,14 +133,14 @@ public class MinecraftMixin {
 
         boolean controlDown = this.hasControlDown();
         //? } else {
-        /*
-         boolean controlDown = Screen.hasControlDown();
+
+        /*boolean controlDown = Screen.hasControlDown();
         *///? }
         ItemStack stack = getHitResultStack(this.hitResult, controlDown);
         //? } else {
-        /*
-            @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-            private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+
+        /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+        private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
             Type type) {
         *///? }
         if (creative) {

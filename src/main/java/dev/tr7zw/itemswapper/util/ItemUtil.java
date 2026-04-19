@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.loader.networking.*;
 import org.jetbrains.annotations.NotNull;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -94,7 +96,7 @@ public final class ItemUtil {
                     // Can't put a shulker into a shulker, so search a different spot
                     continue;
                 }
-                NetworkUtil.swapItem(slot.inventory(), slot.slot());
+                ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             return true;
@@ -111,7 +113,8 @@ public final class ItemUtil {
         //? } else {
 
         /*minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                InventoryUtil.getSelectedId(minecraft.player.getInventory()), net.minecraft.world.inventory.ClickType.SWAP, minecraft.player);
+                InventoryUtil.getSelectedId(minecraft.player.getInventory()),
+                net.minecraft.world.inventory.ClickType.SWAP, minecraft.player);
         *///? }
     }
 

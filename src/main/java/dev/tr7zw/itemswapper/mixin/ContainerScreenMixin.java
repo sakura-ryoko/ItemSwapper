@@ -40,8 +40,8 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     //? } else {
 
     /*@Inject(method = "render", at = @At("HEAD"))
-     *///? }
-        //? if >= 1.20.0 {
+    *///? }
+       //? if >= 1.20.0 {
 
     public void render(GuiGraphicsExtractor graphics, int i, int j, float f, CallbackInfo ci) {
         //? } else {

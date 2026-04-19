@@ -2,8 +2,8 @@ package dev.tr7zw.itemswapper.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 //? if < 1.21.2 {
-/*
-import org.spongepowered.asm.mixin.Shadow;
+
+/*import org.spongepowered.asm.mixin.Shadow;
 *///? }
 
 import dev.tr7zw.itemswapper.accessor.SmithingTemplateItemAccessor;
@@ -14,8 +14,8 @@ import net.minecraft.world.item.SmithingTemplateItem;
 public class SmithingTemplateItemMixin implements SmithingTemplateItemAccessor {
 
     //? if < 1.21.2 {
-    /*
-    @Shadow
+
+    /*@Shadow
     *///? }
     private Component upgradeDescription;
 

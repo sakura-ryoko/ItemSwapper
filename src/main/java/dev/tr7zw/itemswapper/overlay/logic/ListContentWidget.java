@@ -11,9 +11,10 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -105,7 +106,7 @@ public class ListContentWidget extends ItemGridWidget {
             if (entry.inventory() == -1) {
                 ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(entry.slot()));
             } else {
-                NetworkUtil.swapItem(entry.inventory(), entry.slot());
+                ClientNetworkUtil.sendPacket(new SwapItemPayload(entry.inventory(), entry.slot()));
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(entry));
             return false;

@@ -28,7 +28,7 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
     @Override
     public void onControlifyInit(dev.isxander.controlify.api.entrypoint.InitContext arg0) {
     }
-
+    
     @Override
     public void onControlifyPreInit(dev.isxander.controlify.api.entrypoint.PreInitContext arg0) {
         ControlifySupport.getInstance().init();
@@ -38,13 +38,13 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
     //? }
 
     //? if >= 1.20.0 && < 1.21.10 {
-    /^
-     @Override
-     public void onControlifyPreInit(ControlifyApi arg0) {
-         ControlifySupport.getInstance().init();
-         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
-         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
-     }
+
+    /^@Override
+    public void onControlifyPreInit(ControlifyApi arg0) {
+        ControlifySupport.getInstance().init();
+        ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
+        ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
+    }
     ^///? } else if < 1.20.10 {
     /^
     @Override

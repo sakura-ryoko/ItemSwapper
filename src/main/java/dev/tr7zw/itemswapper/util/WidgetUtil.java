@@ -74,18 +74,18 @@ public class WidgetUtil {
 
     public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
         //? if < 1.21.6 {
-        /*
-        com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        /*com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         *///? }
            //? if >= 1.21.5 {
 
         //? } else if >= 1.21.2 {
 
-        // com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-        //? } else {
-        /*
-        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        /*com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        *///? } else {
+
+        /*com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         com.mojang.blaze3d.systems.RenderSystem
                 .setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         *///? }

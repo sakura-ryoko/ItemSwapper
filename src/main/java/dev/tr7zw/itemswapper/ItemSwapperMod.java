@@ -1,28 +1,20 @@
 package dev.tr7zw.itemswapper;
 
-import java.util.Optional;
-
-import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
-import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
-import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
-import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
-import dev.tr7zw.itemswapper.packets.DisableModPayload;
-import dev.tr7zw.itemswapper.packets.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
-import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
-import dev.tr7zw.itemswapper.packets.SwapItemPayload;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
-
+import dev.tr7zw.itemswapper.compat.*;
+import dev.tr7zw.itemswapper.manager.*;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.server.*;
 import dev.tr7zw.transition.loader.*;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
+import dev.tr7zw.transition.loader.networking.*;
+import net.fabricmc.api.*;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.*;
+import net.fabricmc.fabric.api.resource.*;
+import net.fabricmc.loader.api.*;
+import net.minecraft.network.chat.*;
 
-import net.minecraft.network.chat.Component;
+import java.util.*;
+
+import static dev.tr7zw.transition.mc.GeneralUtil.*;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
 
@@ -48,7 +40,8 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         /*FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
-            eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat.HANDLERS.add(new dev.tr7zw.itemswapper.compat.MidnightControllsSupport());
+            eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat.HANDLERS
+                    .add(new dev.tr7zw.itemswapper.compat.MidnightControllsSupport());
         });
         *///? }
 
@@ -70,37 +63,22 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         SwapperResourceLoader.ResourceLoaderInit.init();
 
-        ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            NetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID, SwapItemPayload::new,
-                    (p, b) -> p.write(b));
-            NetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
-                    RefillItemPayload::new, (p, b) -> p.write(b));
-
-            NetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,
-                    ShulkerSupportPayload::new, (p, b) -> p.write(b), payload -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
-                        } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
-                        }
-                    });
-            NetworkUtil.registerClientCustomPacket(RefillSupportPayload.class, RefillSupportPayload.ID,
-                    RefillSupportPayload::new, (p, b) -> p.write(b), payload -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
-                        } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
-                        }
-                    });
-            NetworkUtil.registerClientCustomPacket(DisableModPayload.class, DisableModPayload.ID,
-                    DisableModPayload::new, (p, b) -> p.write(b), payload -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
-                        } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
-                        }
-                    });
+        ClientNetworkUtil.registerPackets(handle -> {
+            // Server packets
+            handle.registerServerCustomPacket(SwapItemPayload.INSTANCE);
+            handle.registerServerCustomPacket(RefillItemPayload.INSTANCE);
+            // Client packets
+            handle.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE, payload -> {
+                ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
+            });
+            handle.registerClientCustomPacket(RefillSupportPayload.INSTANCE, payload -> {
+                ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
+            });
+            handle.registerClientCustomPacket(DisableModPayload.INSTANCE, payload -> {
+                ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
+            });
         });
+
     }
 
     @Override

@@ -15,10 +15,11 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -85,17 +86,17 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         *///? }
            //        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
            //? if < 1.21.6 {
-           /*
-           com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-           *///? }
+
+        /*com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        *///? }
            //? if >= 1.21.5 {
 
         //? } else if >= 1.21.2 {
 
-        // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-        //? } else {
-        /*
-        com.mojang.blaze3d.systems.RenderSystem
+        /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        *///? } else {
+
+        /*com.mojang.blaze3d.systems.RenderSystem
                 .setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         *///? }
         List<Runnable> itemRenderList = new ArrayList<>();
@@ -189,7 +190,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             if (slot.inventory() == -1) {
                 ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
             } else {
-                NetworkUtil.swapItem(slot.inventory(), slot.slot());
+                ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
@@ -204,27 +205,27 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
                 //? if < 1.21.6 {
-                /*
-                graphics.getPose().pushPose();
+
+                /*graphics.getPose().pushPose();
                 graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
                 *///? }
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 //? if < 1.21.6 {
-                /*
-                graphics.getPose().popPose();
+
+                /*graphics.getPose().popPose();
                 *///? }
             });
         }
         lateRenderList.add(() -> {
             //? if < 1.21.6 {
-            /*
-            graphics.getPose().pushPose();
+
+            /*graphics.getPose().pushPose();
             graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_ITEM);
             *///? }
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             //? if < 1.21.6 {
-            /*
-            graphics.getPose().popPose();
+
+            /*graphics.getPose().popPose();
             *///? }
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
@@ -241,10 +242,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
             //? } else if >= 1.21.2 {
 
-            // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
-            //? } else {
-            /*
-            com.mojang.blaze3d.systems.RenderSystem
+            /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            *///? } else {
+
+            /*com.mojang.blaze3d.systems.RenderSystem
                     .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             *///? }
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
