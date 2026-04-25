@@ -25,9 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 @Mixin(WorldUtils.class)
 public class LitematicaMixin {
 
-    //? if < 26.1 {
-
-    /*@Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
+    @Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
     private static void doSchematicWorldPickBlockHook(boolean closest, Minecraft mc,
             CallbackInfoReturnable<Boolean> ci) {
         if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
@@ -61,5 +59,5 @@ public class LitematicaMixin {
             }
         }
     }
-    *///? }
+
 }
