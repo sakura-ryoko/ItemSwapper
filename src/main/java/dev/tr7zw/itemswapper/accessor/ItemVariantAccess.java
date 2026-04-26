@@ -12,6 +12,6 @@ import net.minecraft.world.item.Item;
  */
 public interface ItemVariantAccess {
 
-    public Set<Item> getAllItemVariants();
+    Set<Item> getAllItemVariants();
 
 }

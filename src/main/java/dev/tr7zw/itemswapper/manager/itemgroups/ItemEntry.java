@@ -4,22 +4,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 
-public class ItemEntry {
-
-    private final Item item;
-    private final Identifier link;
-    private final Component nameOverwride;
-    private final boolean actAsLink;
+public record ItemEntry(Item item, Identifier link, Component nameOverwride, boolean actAsLink) {
 
     public ItemEntry(Item item, Identifier link) {
         this(item, link, null, false);
-    }
-
-    public ItemEntry(Item item, Identifier link, Component nameOverwride, boolean actAsLink) {
-        this.item = item;
-        this.link = link;
-        this.nameOverwride = nameOverwride;
-        this.actAsLink = actAsLink;
     }
 
     public Item getItem() {

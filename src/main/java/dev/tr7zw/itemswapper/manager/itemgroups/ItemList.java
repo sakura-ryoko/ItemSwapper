@@ -6,30 +6,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 
-public class ItemList {
-
-    private final Identifier id;
-    private final Component displayName;
-    private final Item icon;
-    private final Item[] items;
-    private final Set<Item> openOnlyItems;
-    private final Set<Item> ignoreItems;
-    private final boolean disableAutoLink;
-    private final Identifier link;
-    private final List<Shortcut> shortcuts;
-    private boolean paletteList = false;
+public record ItemList(Identifier id, Component displayName, Item icon, Item[] items, Set<Item> openOnlyItems,
+        Set<Item> ignoreItems, boolean disableAutoLink, Identifier link, List<Shortcut> shortcuts,
+        boolean paletteList) {
 
     private ItemList(Builder builder) {
-        this.id = builder.id;
-        this.displayName = builder.displayName;
-        this.icon = builder.icon;
-        this.items = builder.items;
-        this.openOnlyItems = builder.openOnlyItems;
-        this.ignoreItems = builder.ignoreItems;
-        this.disableAutoLink = builder.disableAutoLink;
-        this.link = builder.link;
-        this.shortcuts = builder.shortcuts;
-        this.paletteList = builder.paletteList;
+        this(builder.id, builder.displayName, builder.icon, builder.items, builder.openOnlyItems, builder.ignoreItems,
+                builder.disableAutoLink, builder.link, builder.shortcuts, builder.paletteList);
     }
 
     public Identifier getId() {

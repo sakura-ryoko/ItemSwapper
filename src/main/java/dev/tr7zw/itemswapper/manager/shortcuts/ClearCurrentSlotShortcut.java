@@ -14,13 +14,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 
-public class ClearCurrentSlotShortcut implements Shortcut {
+public record ClearCurrentSlotShortcut() implements Shortcut {
 
-    private final Icon icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
+    private static final Icon icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
             ComponentProvider.translatable("text.itemswapper.clearSlot"));
 
-    private final Minecraft minecraft = Minecraft.getInstance();
-    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
+    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
 
     @Override
     public Icon getIcon() {

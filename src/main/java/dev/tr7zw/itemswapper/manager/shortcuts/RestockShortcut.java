@@ -15,15 +15,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class RestockShortcut implements Shortcut {
+public record RestockShortcut() implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(),
+    private static final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(),
             ComponentProvider.translatable("text.itemswapper.restockAll"));
-    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.restockAll.tooltip");
-
-    public RestockShortcut() {
-
-    }
+    private static final Component hoverText = ComponentProvider.translatable("text.itemswapper.restockAll.tooltip");
 
     @Override
     public Icon getIcon() {

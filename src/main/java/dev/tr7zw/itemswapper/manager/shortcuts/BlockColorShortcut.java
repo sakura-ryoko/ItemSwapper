@@ -18,7 +18,7 @@ import net.minecraft.world.item.BlockItem;
 
 public class BlockColorShortcut implements Shortcut {
 
-    private int offset;
+    private final int offset;
     private final UnpackedColor color;
     private final Icon icon;
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.openPalette.tooltip");
