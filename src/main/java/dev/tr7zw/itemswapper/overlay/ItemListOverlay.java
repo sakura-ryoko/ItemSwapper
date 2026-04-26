@@ -10,12 +10,13 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
@@ -150,7 +151,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
                 InventoryUtil.getSelected(minecraft.player.getInventory())));
         for (Item item : itemSelection.getItems()) {
             List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false,
-                    ConfigManager.getInstance().getConfig().ignoreHotbar);
+                    ConfigHolder.getInstance().getGeneral().getConfig().ignoreHotbar);
             for (AvailableSlot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);
@@ -175,7 +176,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     @Override
     public boolean lockMouse() {
-        return !ConfigManager.getInstance().getConfig().unlockListMouse;
+        return !ConfigHolder.getInstance().getGeneral().getConfig().unlockListMouse;
     }
 
     @Override

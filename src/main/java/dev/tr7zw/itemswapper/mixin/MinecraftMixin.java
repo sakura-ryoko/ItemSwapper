@@ -1,17 +1,22 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.*;
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
+import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.*;
+import net.minecraft.client.server.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import net.minecraft.world.phys.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -21,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
@@ -120,8 +124,8 @@ public class MinecraftMixin {
 
     @Inject(method = "pickBlockOrEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     //? } else if >= 1.21.10 {
-    /*
-    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+
+    /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     *///? } else {
 
     /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
@@ -145,13 +149,14 @@ public class MinecraftMixin {
         if (creative) {
             return;
         }
-        if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
+        if (ConfigHolder.getInstance().getGeneral().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(player.getMainHandItem().getItem());
 
             if (list != null && (list.getId().equals(getResourceLocation("itemswapper", "v2/weapons"))
                     || list.getId().equals(getResourceLocation("itemswapper", "v2/tools")))) {
-                if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
+                if (ConfigHolder.getInstance().getGeneral()
+                        .getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip vanilla logic
                     ci.cancel();
                 }

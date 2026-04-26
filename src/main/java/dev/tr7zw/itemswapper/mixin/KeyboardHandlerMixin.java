@@ -1,5 +1,7 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,7 +14,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
@@ -24,7 +25,7 @@ public class KeyboardHandlerMixin {
     @Final
     private Minecraft minecraft;
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
 
     @Inject(method = "keyPress", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     //? if >= 1.21.10 {

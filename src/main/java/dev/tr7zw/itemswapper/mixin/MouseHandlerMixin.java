@@ -1,5 +1,7 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -7,12 +9,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.blaze3d.Blaze3D;
-
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.screens.Screen;
@@ -31,7 +30,7 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
     @Shadow
     private int fakeRightMouse;
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private boolean keepMouseGrabbed = false;
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)

@@ -3,7 +3,9 @@ package dev.tr7zw.itemswapper;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.api.client.*;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.*;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.transition.mc.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +14,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
@@ -43,8 +44,10 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private final BlockTextureManager blockTextureManager = new BlockTextureManager();
     @Getter
     private final ItemManager itemManager = new ItemManager(clientProviderManager, ItemSwapperClientAPI.getInstance());
-    private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
-    private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
+    @Deprecated
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
+    @Deprecated
+    private final ConfigManager<CacheServerAddresses> serverCache = ConfigHolder.getInstance().getServerCache();
 
     protected KeyMapping keybind = GeneralUtil.createKeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
             "itemswapper");
@@ -92,7 +95,7 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if (server != null && disableOnIp.contains(server.ip) && !disabledByPlayer) {
+        if (server != null && serverCache.getConfig().disableOnIp.contains(server.ip) && !disabledByPlayer) {
             setDisabledByPlayer(true);
             LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!",
                     server.ip);
@@ -147,10 +150,11 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
             if (isDisabledByPlayer()) {
                 ClientUtil.sendActionBarMessage(ComponentProvider.translatable("text.itemswapper.disabledByPlayer")
                         .withStyle(ChatFormatting.RED));
-            } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
+            } else if (server != null && !serverCache.getConfig().enableOnIp.contains(server.ip) && !enableShulkers
+                    && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
-                if (!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
+                if (!bypassAccepted && server != null && serverCache.getConfig().enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
                     ClientUtil.sendActionBarMessage(ComponentProvider.translatable("text.itemswapper.usedwhitelist")
                             .withStyle(ChatFormatting.GOLD));
@@ -257,7 +261,7 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         boolean keepOpen = xtOverlay.onPrimaryClick();
         if (forceClose || !keepOpen) {
             minecraft.setScreen(null);
-            if (!ConfigManager.getInstance().getConfig().allowWalkingWithUI) {
+            if (!ConfigHolder.getInstance().getGeneral().getConfig().allowWalkingWithUI) {
                 KeyMapping.setAll();
             }
         }
@@ -303,11 +307,11 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         if (server != null) {
             if (accepted) {
                 bypassAccepted = true;
-                cacheManager.getCache().enableOnIp.add(server.ip);
+                serverCache.getConfig().enableOnIp.add(server.ip);
             } else {
-                cacheManager.getCache().disableOnIp.add(server.ip);
+                serverCache.getConfig().disableOnIp.add(server.ip);
             }
-            cacheManager.writeConfig();
+            serverCache.writeConfig();
             ItemSwapperSharedMod.LOGGER.info("Add {} to cached ip-addresses", server.ip);
         }
         minecraft.setScreen(null);

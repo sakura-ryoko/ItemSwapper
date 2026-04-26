@@ -1,13 +1,14 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.transition.loader.networking.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -29,7 +30,7 @@ public class PlayerListMixin {
         /*
             public void placeNewPlayer(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
         *///? }
-        if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
+        if (ConfigHolder.getInstance().getGeneral().getConfig().serverPreventModUsage) {
             ServerNetworkUtil.sendPacket(serverPlayer, new DisableModPayload(true));
         } else {
             ServerNetworkUtil.sendPacket(serverPlayer, new ShulkerSupportPayload(true));

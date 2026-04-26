@@ -1,9 +1,10 @@
 package dev.tr7zw.itemswapper.server;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
@@ -15,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 public class ServerItemHandler {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
-    private static final ConfigManager configManager = ConfigManager.getInstance();
+    private static final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
         if (configManager.getConfig().disableShulkers) {

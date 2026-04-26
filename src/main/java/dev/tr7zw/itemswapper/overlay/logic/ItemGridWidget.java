@@ -5,9 +5,10 @@ import java.util.List;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -16,7 +17,7 @@ public abstract class ItemGridWidget implements GuiWidget {
 
     protected final Minecraft minecraft = Minecraft.getInstance();
     protected final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    protected final ConfigManager configManager = ConfigManager.getInstance();
+    protected final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     protected final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     protected final List<GuiSlot> slots = new ArrayList<>();
     protected WidgetArea widgetArea = new WidgetArea(0, 0, 128, 128, null, 0, 0);

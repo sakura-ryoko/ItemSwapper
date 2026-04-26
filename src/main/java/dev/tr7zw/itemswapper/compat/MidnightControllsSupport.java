@@ -1,12 +1,13 @@
 //? if < 26.1 {
 /*package dev.tr7zw.itemswapper.compat;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsClient;
 import eu.midnightdust.midnightcontrols.client.compat.CompatHandler;
 import eu.midnightdust.midnightcontrols.client.controller.ButtonBinding;
@@ -24,7 +25,7 @@ import net.minecraft.client.Minecraft;
 
 public class MidnightControllsSupport implements CompatHandler {
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private ButtonCategory CATEGORY;
     private Minecraft client = Minecraft.getInstance();
 
