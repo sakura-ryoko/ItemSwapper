@@ -2,6 +2,8 @@ package dev.tr7zw.itemswapper;
 
 import java.util.List;
 
+import dev.tr7zw.itemswapper.api.client.*;
+import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.transition.mc.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,9 +13,6 @@ import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.manager.BlockTextureManager;
-import dev.tr7zw.itemswapper.manager.ClientProviderManager;
-import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
@@ -42,6 +41,8 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
     @Getter
     private final BlockTextureManager blockTextureManager = new BlockTextureManager();
+    @Getter
+    private final ItemManager itemManager = new ItemManager(clientProviderManager, ItemSwapperClientAPI.getInstance());
     private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
     private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
 

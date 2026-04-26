@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
-import dev.tr7zw.itemswapper.util.ServerUtil;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import net.minecraft.core.NonNullList;
@@ -63,7 +62,7 @@ public class ServerItemHandler {
                     boolean boxChanged = false;
                     for (int entry = 0; entry < content.size(); entry++) {
                         ItemStack boxItem = content.get(entry);
-                        if (ServerUtil.isSame(boxItem, target)) {
+                        if (isSame(boxItem, target)) {
                             // same, use to restock
                             int amount = Math.min(space, boxItem.getCount());
                             target.setCount(target.getCount() + amount);
@@ -83,6 +82,19 @@ public class ServerItemHandler {
         } catch (Throwable th) {
             network_logger.error("Error handeling network packet!", th);
         }
+    }
+
+    private boolean isSame(ItemStack a, ItemStack b) {
+        //? if < 1.17.0 {
+
+        // return ItemStack.isSame(a, b);
+        //? } else if <= 1.20.4 {
+
+        /*return ItemStack.isSameItemSameTags(a, b);
+         *///? } else {
+
+        return ItemStack.isSameItemSameComponents(a, b);
+        //? }
     }
 
 }

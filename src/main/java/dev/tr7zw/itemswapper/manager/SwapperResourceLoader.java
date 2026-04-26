@@ -85,7 +85,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
             }
             Item[] items = getItemArray(entry.getKey(), entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
             if (items != null) {
-                Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
+                Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(items);
                 if (entry.getKey().getPath().startsWith("wheel_primary/")) {
                     itemGroups.add(group.withPriority(100));
                 }
@@ -427,9 +427,8 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
             var ownId = getResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + i);
             int next = i + 1 == lists.size() ? 0 : i + 1;
             var nextId = getResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
-            itemGroups.add(
-                    ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i)))
-                            .withShortcuts(Arrays.asList(new LinkShortcut(nextId))));
+            itemGroups.add(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(lists.get(i))
+                    .withShortcuts(Arrays.asList(new LinkShortcut(nextId))));
         }
     }
 

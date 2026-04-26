@@ -4,10 +4,11 @@ import java.util.function.BiConsumer;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
+import dev.tr7zw.itemswapper.compat.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemSwapperUI {
+public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemSwapperUI, ScreenCompatibilityProvider {
 
     private BiConsumer<Integer, Integer> vCursorHandler = null;
 

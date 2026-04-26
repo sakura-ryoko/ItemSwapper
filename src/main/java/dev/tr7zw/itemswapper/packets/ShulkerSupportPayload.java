@@ -1,15 +1,15 @@
 package dev.tr7zw.itemswapper.packets;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-import dev.tr7zw.itemswapper.util.ServerUtil;
 import dev.tr7zw.transition.loader.networking.*;
+import dev.tr7zw.transition.mc.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.*;
 
 public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayloadSupport {
 
     public static final ShulkerSupportPayload INSTANCE = new ShulkerSupportPayload(false);
-    public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "enableshulker");
+    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "enableshulker").id();
 
     @Override
     public Identifier id() {

@@ -6,7 +6,6 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -35,7 +34,7 @@ public class LastItemShortcut implements Shortcut {
             ItemSwapperSharedMod.instance.openPage(lastPage);
             return true;
         } else {
-            ItemUtil.grabItem(lastItem, true);
+            ItemSwapperSharedMod.instance.getItemManager().grabItem(lastItem, true);
             return false;
         }
     }

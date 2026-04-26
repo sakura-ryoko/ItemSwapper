@@ -153,6 +153,18 @@ public class ItemGroup {
             return this;
         }
 
+        public Builder withItems(Item[] items) {
+            return withItems(toDefault(items));
+        }
+
+        private ItemEntry[] toDefault(Item[] items) {
+            ItemEntry[] entries = new ItemEntry[items.length];
+            for (int i = 0; i < items.length; i++) {
+                entries[i] = new ItemEntry(items[i], null);
+            }
+            return entries;
+        }
+
         public Builder withOpenOnlyItems(Set<Item> openOnlyItems) {
             this.openOnlyItems = openOnlyItems;
             return this;

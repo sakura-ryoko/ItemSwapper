@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -139,16 +139,6 @@ public final class RenderHelper {
             /*graphics.getPose().popPose();
             *///? }
         }
-    }
-
-    public static Component getName(ItemEntry entry) {
-        if (entry == null) {
-            return null;
-        }
-        if (entry.getNameOverwride() != null) {
-            return entry.getNameOverwride();
-        }
-        return ItemUtil.getDisplayname(entry.getItem().getDefaultInstance());
     }
 
     public static Component getName(ItemIcon entry) {

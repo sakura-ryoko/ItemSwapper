@@ -1,11 +1,12 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
+
+import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.transition.mc.ComponentProvider;
 
 import net.minecraft.client.Minecraft;
@@ -28,7 +29,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        ItemUtil.grabItem(Items.AIR, true);
+        ItemSwapperSharedMod.instance.getItemManager().grabItem(Items.AIR, true);
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.setHideClearSlotShortcut(true);
             // reopen to re-init the UI

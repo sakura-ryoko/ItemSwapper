@@ -1,15 +1,15 @@
 package dev.tr7zw.itemswapper.packets;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-import dev.tr7zw.itemswapper.util.ServerUtil;
 import dev.tr7zw.transition.loader.networking.*;
+import dev.tr7zw.transition.mc.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.*;
 
 public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayloadSupport {
 
     public static final SwapItemPayload INSTANCE = new SwapItemPayload(0, 0);
-    public static final Identifier ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "swap");
+    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "swap").id();
 
     @Override
     public Identifier id() {

@@ -25,7 +25,6 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.client.Minecraft;
@@ -164,7 +163,7 @@ public class MinecraftMixin {
         if (slotId != -1) {
             return;
         }
-        ItemUtil.grabItem(stack.getItem(), false);
+        ItemSwapperSharedMod.instance.getItemManager().grabItem(stack.getItem(), false);
         ci.cancel();
     }
 

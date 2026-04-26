@@ -116,7 +116,7 @@ public class ListContentWidget extends ItemGridWidget {
             ItemStack itemInHand = GeneralUtil.getPlayer().getMainHandItem();
             if (!itemInHand.isEmpty() && !dev.tr7zw.transition.mc.ItemUtil.isSame(itemInHand,
                     itemInHand.getItem().getDefaultInstance())) {
-                ItemUtil.grabItem(Items.AIR, true);
+                ItemSwapperSharedMod.instance.getItemManager().grabItem(Items.AIR, true);
             }
             minecraft.gameMode.handleCreativeModeItemAdd(
                     itemSelection.getItems()[guiSlot.id()].getDefaultInstance().copy(),
@@ -140,14 +140,15 @@ public class ListContentWidget extends ItemGridWidget {
         if (slot == null) {
             if (itemSelection.isPaletteList()) {
                 RenderHelper.renderSelectedItemName(
-                        ItemUtil.getDisplayname(itemSelection.getItems()[selected.id()].getDefaultInstance()),
+                        ItemSwapperSharedMod.instance.getItemManager()
+                                .getDisplayname(itemSelection.getItems()[selected.id()].getDefaultInstance()),
                         itemSelection.getItems()[selected.id()].getDefaultInstance(), false, yOffset, maxWidth,
                         graphics);
             }
             return;
         }
-        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()), slot.item(), false, yOffset, maxWidth,
-                graphics);
+        RenderHelper.renderSelectedItemName(ItemSwapperSharedMod.instance.getItemManager().getDisplayname(slot.item()),
+                slot.item(), false, yOffset, maxWidth, graphics);
 
     }
 

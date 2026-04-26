@@ -9,7 +9,6 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -91,7 +90,7 @@ public class PaletteWidget extends ItemGridWidget {
                 ItemSwapperMod.instance.getItemGroupManager().setLastPickedItem(entry.getItem(), itemGroup);
                 return false;
             }
-            boolean changed = ItemUtil.grabItem(entry.getItem(), false);
+            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabItem(entry.getItem(), false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
@@ -111,16 +110,19 @@ public class PaletteWidget extends ItemGridWidget {
             return;
         }
         if (slot.isActAsLink()) {
-            RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
+            RenderHelper.renderSelectedItemName(
+                    ItemSwapperSharedMod.instance.getItemManager().getDisplayname(itemGroup.getItem(selected.id())),
                     slot.getItem().getDefaultInstance(), false, yOffset, maxWidth, graphics);
             return;
         }
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
-            RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
+            RenderHelper.renderSelectedItemName(
+                    ItemSwapperSharedMod.instance.getItemManager().getDisplayname(itemGroup.getItem(selected.id())),
                     availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         } else {
-            RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
+            RenderHelper.renderSelectedItemName(
+                    ItemSwapperSharedMod.instance.getItemManager().getDisplayname(itemGroup.getItem(selected.id())),
                     slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth, graphics);
         }
 

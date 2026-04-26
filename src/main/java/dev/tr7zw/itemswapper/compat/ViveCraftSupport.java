@@ -34,7 +34,7 @@ public class ViveCraftSupport {
     }
 
     public boolean isActive() {
-        return isAvailable() && ConfigManager.getInstance().getConfig().vivecraftCompat;
+        return isAvailable() && configManager.getConfig().vivecraftCompat;
     }
 
 }

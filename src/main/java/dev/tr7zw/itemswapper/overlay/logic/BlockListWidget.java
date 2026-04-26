@@ -70,7 +70,7 @@ public class BlockListWidget extends ItemGridWidget {
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
-            boolean changed = ItemUtil.grabItem(item, false);
+            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabItem(item, false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance
@@ -100,7 +100,8 @@ public class BlockListWidget extends ItemGridWidget {
                     availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         } else {
             RenderHelper.renderSelectedItemName(
-                    ItemUtil.getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
+                    ItemSwapperSharedMod.instance.getItemManager()
+                            .getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
                     blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth,
                     graphics);
         }

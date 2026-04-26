@@ -227,7 +227,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
             /*graphics.getPose().popPose();
             *///? }
-            var name = ItemUtil.getDisplayname(slot.item());
+            var name = ItemSwapperSharedMod.instance.getItemManager().getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
             }

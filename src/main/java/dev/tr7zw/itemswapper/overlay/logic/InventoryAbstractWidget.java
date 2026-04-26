@@ -74,7 +74,8 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
             RenderContext graphics) {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
-            RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(availableSlots.get(0).item()),
+            RenderHelper.renderSelectedItemName(
+                    ItemSwapperSharedMod.instance.getItemManager().getDisplayname(availableSlots.get(0).item()),
                     availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         }
     }
