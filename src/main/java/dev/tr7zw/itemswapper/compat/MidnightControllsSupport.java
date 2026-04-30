@@ -33,7 +33,7 @@ public class MidnightControllsSupport implements CompatHandler {
     public void handle(@NotNull MidnightControlsClient mod) {
         CATEGORY = InputManager.registerCategory(new org.aperlambda.lambdacommon.Identifier("itemswapper:controlls"));
         new ButtonBinding.Builder("key.itemswapper.itemswitcher").buttons(GLFW.GLFW_GAMEPAD_BUTTON_DPAD_UP)
-                .category(CATEGORY).linkKeybind(ItemSwapperSharedMod.instance.getKeybind())
+                .category(CATEGORY).linkKeybind(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind())
                 //? if >= 1.21.0 {
 
                 .filter((buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
@@ -53,7 +53,7 @@ public class MidnightControllsSupport implements CompatHandler {
                 }).register();
 
         new ButtonBinding.Builder("key.itemswapper.toggleitem").buttons(GLFW.GLFW_GAMEPAD_BUTTON_X).category(CATEGORY)
-                .linkKeybind(ItemSwapperSharedMod.instance.getKeybind())
+                .linkKeybind(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind())
                 //? if >= 1.21.0 {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)

@@ -23,7 +23,7 @@ public record OpenInventoryShortcut(SwitchItemOverlay overlay) implements Shortc
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        ItemSwapperSharedMod.openInventoryScreen();
+        ItemSwapperSharedMod.instance.getClientUiManager().openInventoryScreen();
         return true;
     }
 

@@ -25,8 +25,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
     public void initModloader() {
         new ItemSwapperServerMod().onLoad();
         ClientTickEvents.START_CLIENT_TICK.register(event -> this.clientTick());
-        ModLoaderUtil.registerKeybind(keybind);
-        ModLoaderUtil.registerKeybind(openInventoryKeybind);
+        clientUiManager.initModloader();
 
         // Register default resource pack
 
@@ -69,13 +68,13 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             handle.registerServerCustomPacket(RefillItemPayload.INSTANCE);
             // Client packets
             handle.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE, payload -> {
-                ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
+                ItemSwapperSharedMod.instance.getSessionSettings().setEnableShulkers(payload.enabled());
             });
             handle.registerClientCustomPacket(RefillSupportPayload.INSTANCE, payload -> {
-                ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
+                ItemSwapperSharedMod.instance.getSessionSettings().setEnableRefill(payload.enabled());
             });
             handle.registerClientCustomPacket(DisableModPayload.INSTANCE, payload -> {
-                ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
+                ItemSwapperSharedMod.instance.getSessionSettings().setModDisabled(payload.enabled());
             });
         });
 

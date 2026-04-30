@@ -42,15 +42,16 @@ public class KeyboardHandlerMixin {
             //? if >= 1.21.10 {
 
             if (!configManager.getConfig().allowWalkingWithUI
-                    && !(ItemSwapperSharedMod.instance.getKeybind().matches(keyEvent)
-                            || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(keyEvent))) {
+                    && !(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind().matches(keyEvent)
+                            || ItemSwapperSharedMod.instance.getClientUiManager().getOpenInventoryKeybind()
+                                    .matches(keyEvent))) {
                 return;
             }
             //? } else {
 
             /*if (!configManager.getConfig().allowWalkingWithUI
-                    && !(ItemSwapperSharedMod.instance.getKeybind().matches(i, j)
-                            || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(i, j))) {
+                    && !(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind().matches(i, j)
+                            || ItemSwapperSharedMod.instance.getClientUiManager().getOpenInventoryKeybind().matches(i, j))) {
                 return;
             }
             *///? }

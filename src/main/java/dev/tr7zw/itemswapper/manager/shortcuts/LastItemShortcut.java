@@ -24,7 +24,7 @@ public record LastItemShortcut(Item lastItem, Page lastPage) implements Shortcut
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if (action == ActionType.SECONDARY_CLICK) {
-            ItemSwapperSharedMod.instance.openPage(lastPage);
+            ItemSwapperSharedMod.instance.getClientUiManager().openPage(lastPage);
             return true;
         } else {
             ItemSwapperSharedMod.instance.getItemManager().grabItem(lastItem, true);

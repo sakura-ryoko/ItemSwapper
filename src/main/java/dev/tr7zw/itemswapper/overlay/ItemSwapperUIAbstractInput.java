@@ -32,7 +32,7 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mouseButtonEvent, boolean bl) {
         if (mouseButtonEvent.buttonInfo().button() == 0) {
-            ItemSwapperSharedMod.onPrimaryClick(this, false);
+            ItemSwapperSharedMod.instance.getClientUiManager().onPrimaryClick(this, false);
         } else if (mouseButtonEvent.buttonInfo().button() == 1 || mouseButtonEvent.buttonInfo().button() == 2) {
             onSecondaryClick();
         }
@@ -46,7 +46,7 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     *///? }
     public boolean mouseClicked(double d, double e, int i) {
         if (i == 0) {
-            ItemSwapperSharedMod.onPrimaryClick(this, false);
+            ItemSwapperSharedMod.instance.getClientUiManager().onPrimaryClick(this, false);
         } else if (i == 1 || i == 2) {
             onSecondaryClick();
         }

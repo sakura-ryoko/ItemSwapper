@@ -28,8 +28,8 @@ public class KeyMappingMixin {
             if (!configManager.getConfig().allowWalkingWithUI) {
                 // stop walking now
                 for (KeyMapping keyMapping : ALL.values())
-                    if (!(keyMapping.same(ItemSwapperSharedMod.instance.getKeybind())
-                            || keyMapping.same(ItemSwapperSharedMod.instance.getInventoryKeybind()))) {
+                    if (!(keyMapping.same(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind()) || keyMapping
+                            .same(ItemSwapperSharedMod.instance.getClientUiManager().getOpenInventoryKeybind()))) {
                         keyMapping.setDown(false);
                     }
             }

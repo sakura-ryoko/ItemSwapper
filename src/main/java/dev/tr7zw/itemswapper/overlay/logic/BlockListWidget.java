@@ -84,7 +84,7 @@ public class BlockListWidget extends ItemGridWidget {
     @Override
     public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
         UnpackedColor[] color = ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blocks.get(slot.id()));
-        ItemSwapperSharedMod.instance.openPage(new TexturePage(color, color[0]));
+        ItemSwapperSharedMod.instance.getClientUiManager().openPage(new TexturePage(color, color[0]));
     }
 
     @Override

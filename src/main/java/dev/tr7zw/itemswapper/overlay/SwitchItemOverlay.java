@@ -100,7 +100,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (configManager.getConfig().experimentalAutoPalette) {
             shortcutList.add(new BlockColorShortcut(null, 0));
         }
-        if (ItemSwapperSharedMod.instance.isEnableRefill()) {
+        if (ItemSwapperSharedMod.instance.getClientUiManager().isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
         if (configManager.getConfig().showOpenInventoryButton) {
