@@ -5,8 +5,8 @@ import dev.tr7zw.transition.config.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dev.tr7zw.itemswapper.packets.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.SwapItemPayload;
+import dev.tr7zw.itemswapper.packets.serverbound.RefillItemPayload;
+import dev.tr7zw.itemswapper.packets.serverbound.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import net.minecraft.core.NonNullList;

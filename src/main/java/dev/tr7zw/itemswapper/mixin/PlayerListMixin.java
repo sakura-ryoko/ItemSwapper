@@ -1,8 +1,7 @@
 package dev.tr7zw.itemswapper.mixin;
 
 import dev.tr7zw.itemswapper.config.*;
-import dev.tr7zw.itemswapper.packets.*;
-import dev.tr7zw.transition.config.*;
+import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

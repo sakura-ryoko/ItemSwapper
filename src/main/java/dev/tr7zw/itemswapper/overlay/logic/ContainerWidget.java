@@ -4,21 +4,17 @@ import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
-import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -34,6 +30,7 @@ public class ContainerWidget extends ItemGridWidget {
 
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
+    private static final ItemManager itemManager = ItemSwapperSharedMod.instance.getItemManager();
     private int slotId;
 
     public ContainerWidget(int x, int y, int slotId) {
@@ -91,13 +88,10 @@ public class ContainerWidget extends ItemGridWidget {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
-            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if (event.canceled().get()) {
+            if (!itemManager.grabItem(slot)) {
                 // interaction canceled by some other mod
                 return true;
             }
-            ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
-            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
             ItemSwapperSharedMod.instance.setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
             return false;

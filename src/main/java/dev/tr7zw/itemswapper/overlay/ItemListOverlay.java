@@ -2,25 +2,20 @@ package dev.tr7zw.itemswapper.overlay;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.*;
-import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.itemswapper.packets.*;
-import dev.tr7zw.transition.config.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -59,6 +54,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private static final int slotSize = 18;
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    private final ItemManager itemManager = ItemSwapperSharedMod.instance.getItemManager();
     private final Minecraft minecraft = Minecraft.getInstance();
     private ItemList itemSelection;
     private List<AvailableSlot> entries = new ArrayList<>();
@@ -183,17 +179,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
-            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if (event.canceled().get()) {
-                // interaction canceled by some other mod
-                return true;
-            }
-            if (slot.inventory() == -1) {
-                ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
-            } else {
-                ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
-            }
-            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+            itemManager.grabItem(slot);
         }
         return false;
     }

@@ -2,7 +2,8 @@ package dev.tr7zw.itemswapper;
 
 import dev.tr7zw.itemswapper.compat.*;
 import dev.tr7zw.itemswapper.manager.*;
-import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.clientbound.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.server.*;
 import dev.tr7zw.transition.loader.*;
 import dev.tr7zw.transition.loader.networking.*;
@@ -18,7 +19,6 @@ import static dev.tr7zw.transition.mc.GeneralUtil.*;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
 
-    private static final String ERROR_WHILE_PROCESSING_PACKET = "Error while processing packet!";
     protected static final String ITEMSWAPPER = "itemswapper";
 
     @Override

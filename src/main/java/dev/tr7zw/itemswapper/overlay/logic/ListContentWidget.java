@@ -3,18 +3,15 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -23,6 +20,7 @@ import net.minecraft.world.item.*;
 
 public class ListContentWidget extends ItemGridWidget {
 
+    private final ItemManager itemManager = ItemSwapperSharedMod.instance.getItemManager();
     private final ItemList itemSelection;
     private final List<AvailableSlot> entries = new ArrayList<>();
 
@@ -98,18 +96,7 @@ public class ListContentWidget extends ItemGridWidget {
         }
         AvailableSlot entry = entries.get(guiSlot.id());
         if (entry != null && !entry.item().isEmpty()) {
-            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(entry, new AtomicBoolean()));
-            if (event.canceled().get()) {
-                // interaction canceled by some other mod
-                return true;
-            }
-            if (entry.inventory() == -1) {
-                ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(entry.slot()));
-            } else {
-                ClientNetworkUtil.sendPacket(new SwapItemPayload(entry.inventory(), entry.slot()));
-            }
-            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(entry));
-            return false;
+            return itemManager.grabItem(entry);
         } else if (guiSlot.id() < itemSelection.getItems().length && minecraft.player.isCreative()
                 && configManager.getConfig().creativeCheatMode) {
             // stash away current item, if its not a default item to prevent item loss

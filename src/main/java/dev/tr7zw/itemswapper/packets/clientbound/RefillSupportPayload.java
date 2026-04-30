@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.packets;
+package dev.tr7zw.itemswapper.packets.clientbound;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.transition.loader.networking.*;
@@ -6,10 +6,15 @@ import dev.tr7zw.transition.mc.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.*;
 
-public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayloadSupport {
+/**
+ * Packet to enable/disable refill support on the client.
+ * 
+ * @param enabled
+ */
+public record RefillSupportPayload(boolean enabled) implements CustomPacketPayloadSupport {
 
-    public static final ShulkerSupportPayload INSTANCE = new ShulkerSupportPayload(false);
-    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "enableshulker").id();
+    public static final RefillSupportPayload INSTANCE = new RefillSupportPayload(true);
+    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "enablerefill").id();
 
     @Override
     public Identifier id() {
@@ -23,10 +28,10 @@ public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayl
 
     @Override
     public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
-        return new ShulkerSupportPayload(friendlyByteBuf);
+        return new RefillSupportPayload(friendlyByteBuf);
     }
 
-    public ShulkerSupportPayload(FriendlyByteBuf buffer) {
+    public RefillSupportPayload(FriendlyByteBuf buffer) {
         this(buffer.readBoolean());
     }
 

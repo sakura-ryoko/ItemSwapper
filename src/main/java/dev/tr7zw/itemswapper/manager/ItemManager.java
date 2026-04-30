@@ -1,10 +1,9 @@
 package dev.tr7zw.itemswapper.manager;
 
-import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.api.*;
 import dev.tr7zw.itemswapper.api.client.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.*;
-import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.transition.loader.networking.*;
@@ -27,25 +26,34 @@ public class ItemManager {
     public boolean grabItem(Item item, boolean ignoreHotbar) {
         List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, false, ignoreHotbar);
         for (AvailableSlot slot : slots) {
-            ItemSwapperClientAPI.OnSwap event = clientAPI.prepareItemSwapEvent
-                    .callEvent(new ItemSwapperClientAPI.OnSwap(slot, new AtomicBoolean()));
-            if (event.canceled().get()) {
-                // interaction canceled by some other mod
-                return false;
+            if (slot.inventory() != -1
+                    && ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
+                // Can't put a shulker into a shulker, so search a different spot
+                continue;
             }
-            if (slot.inventory() == -1) {
-                ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
-            } else {
-                if (ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
-                    // Can't put a shulker into a shulker, so search a different spot
-                    continue;
-                }
-                ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
-            }
-            clientAPI.itemSwapSentEvent.callEvent(new ItemSwapperClientAPI.SwapSent(slot));
-            return true;
+            return grabItem(slot);
         }
         return false;
+    }
+
+    public boolean grabItem(AvailableSlot slot) {
+        ItemSwapperClientAPI.OnSwap event = clientAPI.prepareItemSwapEvent
+                .callEvent(new ItemSwapperClientAPI.OnSwap(slot, new AtomicBoolean()));
+        if (event.canceled().get()) {
+            // interaction canceled by some other mod
+            return false;
+        }
+        if (slot.inventory() == -1) {
+            ItemUtil.swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
+        } else {
+            if (ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
+                // Can't put a shulker into a shulker, so search a different spot
+                return false;
+            }
+            ClientNetworkUtil.sendPacket(new SwapItemPayload(slot.inventory(), slot.slot()));
+        }
+        clientAPI.itemSwapSentEvent.callEvent(new ItemSwapperClientAPI.SwapSent(slot));
+        return true;
     }
 
     public Component getDisplayname(ItemStack item) {

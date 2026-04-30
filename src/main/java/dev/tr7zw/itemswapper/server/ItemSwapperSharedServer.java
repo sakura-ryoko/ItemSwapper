@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.server;
 
-import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.clientbound.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import org.apache.logging.log4j.*;
 
