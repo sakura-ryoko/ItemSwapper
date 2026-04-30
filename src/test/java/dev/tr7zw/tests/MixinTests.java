@@ -19,11 +19,8 @@ import net.minecraft.world.item.InstrumentItem;
 //? if >= 1.21.0 {
 
 import net.minecraft.world.item.Items;
-//? } else {
-/*
-import net.minecraft.world.item.RecordItem;
-*///? }
 
+//? }
 public class MixinTests {
 
     @BeforeAll
@@ -46,8 +43,8 @@ public class MixinTests {
 
         objenesis.newInstance(Items.class);
         //? } else {
-        /*
-        objenesis.newInstance(RecordItem.class);
+
+        /*objenesis.newInstance(net.minecraft.world.item.RecordItem.class);
         *///? }
         objenesis.newInstance(ServerGamePacketListenerImpl.class);
     }

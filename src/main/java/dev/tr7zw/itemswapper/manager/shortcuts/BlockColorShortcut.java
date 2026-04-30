@@ -18,7 +18,7 @@ import net.minecraft.world.item.BlockItem;
 
 public class BlockColorShortcut implements Shortcut {
 
-    private int offset;
+    private final int offset;
     private final UnpackedColor color;
     private final Icon icon;
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.openPalette.tooltip");
@@ -45,13 +45,13 @@ public class BlockColorShortcut implements Shortcut {
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if (color != null) {
-            ItemSwapperSharedMod.instance.openPage(
+            ItemSwapperSharedMod.instance.getClientUiManager().openPage(
                     new TexturePage(new UnpackedColor[] { ColorUtil.createTetradPalette(color).get(offset) }, color));
             return true;
         } else if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof BlockItem blockItem) {
             UnpackedColor base = ItemSwapperSharedMod.instance.getBlockTextureManager()
                     .getColor(blockItem.getBlock())[0];
-            ItemSwapperSharedMod.instance.openPage(
+            ItemSwapperSharedMod.instance.getClientUiManager().openPage(
                     new TexturePage(new UnpackedColor[] { ColorUtil.createTetradPalette(base).get(offset) }, base));
             return true;
         }

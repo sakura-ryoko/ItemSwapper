@@ -14,8 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 //? if < 1.20.5 {
-/*
-import net.minecraft.world.item.alchemy.PotionUtils;
+
+/*import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.network.chat.ComponentContents;
@@ -35,8 +35,8 @@ public class PotionNameProvider implements NameProvider {
     @Override
     public Component getDisplayName(ItemStack item) {
         //? if < 1.20.5 {
-        /*
-        List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
+
+        /*List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
         if (!effects.isEmpty()) {
             MutableComponent comp = formatEffect(effects.get(0));
             if (effects.size() >= 2) {
@@ -75,8 +75,8 @@ public class PotionNameProvider implements NameProvider {
     }
 
     //? if < 1.20.5 {
-    /*
-    private MutableComponent formatEffect(MobEffectInstance effect) {
+
+    /*private MutableComponent formatEffect(MobEffectInstance effect) {
         MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
         if (effect.getAmplifier() > 1) {
             comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));

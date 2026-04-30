@@ -57,15 +57,15 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
                     onPress();
                 }
                 //? } else {
-                /*
-                        null
-                        *///? }
+
+                /*null
+                *///? }
                 , CommonComponents.EMPTY);
     }
 
     //? if < 1.21.10 {
-    /*
-    @Override
+
+    /*@Override
     *///? }
     public
     //? if >= 1.21.10 {
@@ -102,8 +102,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
         /*public void renderContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(graphics);
         *///? } else if >= 1.20.0 {
-        /*
-        public void renderWidget(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
+
+        /*public void renderWidget(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(graphics);
         *///? } else {
         /*

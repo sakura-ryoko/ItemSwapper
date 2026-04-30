@@ -2,16 +2,10 @@ package dev.tr7zw.itemswapper.manager.itemgroups;
 
 import net.minecraft.resources.*;
 
-public class ItemGroupModifier {
-
-    private final Identifier target;
-    private final ItemEntry[] addItems;
-    private final ItemEntry[] removeItems;
+public record ItemGroupModifier(Identifier target, ItemEntry[] addItems, ItemEntry[] removeItems) {
 
     private ItemGroupModifier(Builder builder) {
-        this.target = builder.target;
-        this.addItems = builder.addItems;
-        this.removeItems = builder.removeItems;
+        this(builder.target, builder.addItems, builder.removeItems);
     }
 
     public Identifier getTarget() {

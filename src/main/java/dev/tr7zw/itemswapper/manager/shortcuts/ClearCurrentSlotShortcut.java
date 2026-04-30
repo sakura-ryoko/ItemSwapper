@@ -1,11 +1,12 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
+
+import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.transition.mc.ComponentProvider;
 
 import net.minecraft.client.Minecraft;
@@ -13,13 +14,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 
-public class ClearCurrentSlotShortcut implements Shortcut {
+public record ClearCurrentSlotShortcut() implements Shortcut {
 
-    private final Icon icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
+    private static final Icon icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
             ComponentProvider.translatable("text.itemswapper.clearSlot"));
 
-    private final Minecraft minecraft = Minecraft.getInstance();
-    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
+    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
 
     @Override
     public Icon getIcon() {
@@ -28,7 +29,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        ItemUtil.grabItem(Items.AIR, true);
+        ItemSwapperSharedMod.instance.getItemManager().grabItem(Items.AIR, true);
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.setHideClearSlotShortcut(true);
             // reopen to re-init the UI

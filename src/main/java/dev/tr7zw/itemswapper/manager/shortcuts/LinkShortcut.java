@@ -18,23 +18,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class LinkShortcut implements Shortcut {
+public record LinkShortcut(Identifier nextId, Component displayName, Item displayIcon) implements Shortcut {
 
-    private final ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
-    private final Identifier nextId;
-    private final Component displayName;
-    private final Item displayIcon;
+    private final static ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
 
     public LinkShortcut(Identifier nextId) {
-        this.nextId = nextId;
-        this.displayName = null;
-        this.displayIcon = null;
-    }
-
-    public LinkShortcut(Identifier nextId, Component displayName, Item icon) {
-        this.nextId = nextId;
-        this.displayName = displayName;
-        this.displayIcon = icon;
+        this(nextId, null, null);
     }
 
     @Override

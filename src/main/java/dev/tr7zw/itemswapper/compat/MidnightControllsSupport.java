@@ -1,12 +1,13 @@
 //? if < 26.1 {
 /*package dev.tr7zw.itemswapper.compat;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsClient;
 import eu.midnightdust.midnightcontrols.client.compat.CompatHandler;
 import eu.midnightdust.midnightcontrols.client.controller.ButtonBinding;
@@ -24,7 +25,7 @@ import net.minecraft.client.Minecraft;
 
 public class MidnightControllsSupport implements CompatHandler {
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private ButtonCategory CATEGORY;
     private Minecraft client = Minecraft.getInstance();
 
@@ -32,14 +33,14 @@ public class MidnightControllsSupport implements CompatHandler {
     public void handle(@NotNull MidnightControlsClient mod) {
         CATEGORY = InputManager.registerCategory(new org.aperlambda.lambdacommon.Identifier("itemswapper:controlls"));
         new ButtonBinding.Builder("key.itemswapper.itemswitcher").buttons(GLFW.GLFW_GAMEPAD_BUTTON_DPAD_UP)
-                .category(CATEGORY).linkKeybind(ItemSwapperSharedMod.instance.getKeybind())
+                .category(CATEGORY).linkKeybind(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind())
                 //? if >= 1.21.0 {
 
                 .filter((buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen == null || client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -52,14 +53,14 @@ public class MidnightControllsSupport implements CompatHandler {
                 }).register();
 
         new ButtonBinding.Builder("key.itemswapper.toggleitem").buttons(GLFW.GLFW_GAMEPAD_BUTTON_X).category(CATEGORY)
-                .linkKeybind(ItemSwapperSharedMod.instance.getKeybind())
+                .linkKeybind(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind())
                 //? if >= 1.21.0 {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -79,9 +80,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -101,9 +102,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -123,9 +124,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override
@@ -145,9 +146,9 @@ public class MidnightControllsSupport implements CompatHandler {
 
                 .filter((buttonBinding) -> client.screen instanceof ItemSwapperUI)
                 //? } else {
-                /^
-                        .filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
-                        ^///? }
+
+                /^.filter((client, buttonBinding) -> client.screen instanceof ItemSwapperUI)
+                ^///? }
                 .action(new PressAction() {
 
                     @Override

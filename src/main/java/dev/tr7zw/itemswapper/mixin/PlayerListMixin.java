@@ -1,12 +1,11 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.server.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.util.ServerNetworkUtil;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -28,12 +27,12 @@ public class PlayerListMixin {
         /*
             public void placeNewPlayer(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
         *///? }
-        if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
-            ServerNetworkUtil.sendDisableModPacket(serverPlayer, true);
-        } else {
-            ServerNetworkUtil.sendShulkerSupportPacket(serverPlayer, true);
-            ServerNetworkUtil.sendRefillSupportPacket(serverPlayer, true);
-        }
+        ItemSwapperServerMod.INSTANCE.getPlayerManager().onJoin(serverPlayer);
+    }
+
+    @Inject(method = "remove", at = @At("HEAD"))
+    public void remove(ServerPlayer player, CallbackInfo ci) {
+        ItemSwapperServerMod.INSTANCE.getPlayerManager().onLeave(player);
     }
 
 }

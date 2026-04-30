@@ -1,32 +1,15 @@
 package dev.tr7zw.itemswapper.util;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import dev.tr7zw.transition.mc.*;
+import net.minecraft.client.*;
+import net.minecraft.world.item.*;
+import org.jetbrains.annotations.*;
 
-import org.jetbrains.annotations.NotNull;
-
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
-import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.itemswapper.manager.ClientProviderManager;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
-import dev.tr7zw.transition.mc.InventoryUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import java.util.*;
 
 public final class ItemUtil {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
-            .getClientProviderManager();
-    private static final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
 
     private ItemUtil() {
         // private
@@ -37,23 +20,6 @@ public final class ItemUtil {
             return 36 + slot;
         }
         return slot;
-    }
-
-    public static boolean inArray(Item[] items, Item item) {
-        for (Item i : items) {
-            if (i == item) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static ItemEntry[] toDefault(Item[] items) {
-        ItemEntry[] entries = new ItemEntry[items.length];
-        for (int i = 0; i < items.length; i++) {
-            entries[i] = new ItemEntry(items[i], null);
-        }
-        return entries;
     }
 
     @NotNull
@@ -68,40 +34,6 @@ public final class ItemUtil {
         return items;
     }
 
-    public static Component getDisplayname(ItemStack item) {
-        if (dev.tr7zw.transition.mc.ItemUtil.hasCustomName(item)) {
-            return item.getHoverName().copy();
-        }
-        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item);
-        if (provider != null) {
-            return provider.getDisplayName(item).copy();
-        }
-        return item.getHoverName().copy();
-    }
-
-    public static boolean grabItem(Item item, boolean ignoreHotbar) {
-        List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, false, ignoreHotbar);
-        for (AvailableSlot slot : slots) {
-            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if (event.canceled().get()) {
-                // interaction canceled by some other mod
-                return false;
-            }
-            if (slot.inventory() == -1) {
-                swapWithSlot(ItemUtil.inventorySlotToHudSlot(slot.slot()));
-            } else {
-                if (ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
-                    // Can't put a shulker into a shulker, so search a different spot
-                    continue;
-                }
-                NetworkUtil.swapItem(slot.inventory(), slot.slot());
-            }
-            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
-            return true;
-        }
-        return false;
-    }
-
     public static void swapWithSlot(int hudSlot) {
         //? if >= 26.1 {
 
@@ -111,7 +43,8 @@ public final class ItemUtil {
         //? } else {
 
         /*minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                InventoryUtil.getSelectedId(minecraft.player.getInventory()), net.minecraft.world.inventory.ClickType.SWAP, minecraft.player);
+                InventoryUtil.getSelectedId(minecraft.player.getInventory()),
+                net.minecraft.world.inventory.ClickType.SWAP, minecraft.player);
         *///? }
     }
 

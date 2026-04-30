@@ -2,15 +2,15 @@ package dev.tr7zw.itemswapper.mixin;
 
 import static dev.tr7zw.itemswapper.util.ItemUtil.itemstackToSingleItem;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -40,15 +40,15 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     //? } else {
 
     /*@Inject(method = "render", at = @At("HEAD"))
-     *///? }
-        //? if >= 1.20.0 {
+    *///? }
+       //? if >= 1.20.0 {
 
     public void render(GuiGraphicsExtractor graphics, int i, int j, float f, CallbackInfo ci) {
         //? } else {
         /*
             public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
         *///? }
-        if (!ConfigManager.getInstance().getConfig().editMode) {
+        if (!ConfigHolder.getInstance().getGeneral().getConfig().editMode) {
             return;
         }
         int limit = 25;
@@ -60,8 +60,8 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         overlay.setForceAvailable(true);
         overlay.setHideShortcuts(true);
         overlay.setHideCursor(true);
-        overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting
-                                                                                                 // values
+        overlay.openItemGroup(ItemGroup.builder().withItems(items).build()); // init after setting
+                                                                             // values
 
         //? if >= 26.1 {
 

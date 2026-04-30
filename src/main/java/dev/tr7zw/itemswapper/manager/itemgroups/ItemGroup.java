@@ -14,32 +14,14 @@ import net.minecraft.world.item.Item;
  * @author tr7zw
  *
  */
-public class ItemGroup {
-
-    private final Identifier id;
-    private final Component displayName;
-    private final Item icon;
-    private final int priority;
-    private final boolean disableAutoLink;
-    private final Identifier fallbackLink;
-    private final Identifier forcedLink;
-    private final ItemEntry[] items;
-    private final Set<Item> openOnlyItems;
-    private final Set<Item> ignoreItems;
-    private final List<Shortcut> shortcuts;
+public record ItemGroup(Identifier id, Component displayName, Item icon, int priority, boolean disableAutoLink,
+        Identifier fallbackLink, Identifier forcedLink, ItemEntry[] items, Set<Item> openOnlyItems,
+        Set<Item> ignoreItems, List<Shortcut> shortcuts) {
 
     private ItemGroup(Builder builder) {
-        this.id = builder.id;
-        this.displayName = builder.displayName;
-        this.icon = builder.icon;
-        this.priority = builder.priority;
-        this.disableAutoLink = builder.disableAutoLink;
-        this.fallbackLink = builder.fallbackLink;
-        this.forcedLink = builder.forcedLink;
-        this.items = builder.items;
-        this.openOnlyItems = builder.openOnlyItems;
-        this.ignoreItems = builder.ignoreItems;
-        this.shortcuts = builder.shortcuts;
+        this(builder.id, builder.displayName, builder.icon, builder.priority, builder.disableAutoLink,
+                builder.fallbackLink, builder.forcedLink, builder.items, builder.openOnlyItems, builder.ignoreItems,
+                builder.shortcuts);
     }
 
     public Identifier getId() {
@@ -151,6 +133,18 @@ public class ItemGroup {
         public Builder withItems(ItemEntry[] items) {
             this.items = items;
             return this;
+        }
+
+        public Builder withItems(Item[] items) {
+            return withItems(toDefault(items));
+        }
+
+        private ItemEntry[] toDefault(Item[] items) {
+            ItemEntry[] entries = new ItemEntry[items.length];
+            for (int i = 0; i < items.length; i++) {
+                entries[i] = new ItemEntry(items[i], null);
+            }
+            return entries;
         }
 
         public Builder withOpenOnlyItems(Set<Item> openOnlyItems) {

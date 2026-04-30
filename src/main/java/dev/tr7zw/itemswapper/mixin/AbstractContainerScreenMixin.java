@@ -2,6 +2,8 @@ package dev.tr7zw.itemswapper.mixin;
 
 import java.util.Objects;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -9,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.gui.CopyToClipboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -45,7 +46,8 @@ public class AbstractContainerScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo info) {
-        if (!ConfigManager.getInstance().getConfig().editMode || minecraft == null || minecraft.player == null) {
+        if (!ConfigHolder.getInstance().getGeneral().getConfig().editMode || minecraft == null
+                || minecraft.player == null) {
             return;
         }
 
@@ -62,8 +64,8 @@ public class AbstractContainerScreenMixin extends Screen {
 
     @Inject(method = "extractContents", at = @At("TAIL"))
     //? } else {
-    /*
-    @Inject(method = "render", at = @At("TAIL"))
+
+    /*@Inject(method = "render", at = @At("TAIL"))
     *///? }
        //? if >= 1.20.0 {
 

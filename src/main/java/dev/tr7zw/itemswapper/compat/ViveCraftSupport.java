@@ -1,13 +1,13 @@
 package dev.tr7zw.itemswapper.compat;
 
-import dev.tr7zw.itemswapper.config.Config;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
+import dev.tr7zw.transition.config.*;
 
 public class ViveCraftSupport {
 
     private static final ViveCraftSupport INSTANCE = new ViveCraftSupport();
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private boolean isAvailable = false;
 
     private ViveCraftSupport() {
@@ -34,7 +34,7 @@ public class ViveCraftSupport {
     }
 
     public boolean isActive() {
-        return isAvailable() && ConfigManager.getInstance().getConfig().vivecraftCompat;
+        return isAvailable() && configManager.getConfig().vivecraftCompat;
     }
 
 }

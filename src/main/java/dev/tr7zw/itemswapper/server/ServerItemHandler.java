@@ -1,12 +1,12 @@
 package dev.tr7zw.itemswapper.server;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.packets.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.SwapItemPayload;
-import dev.tr7zw.itemswapper.util.ServerUtil;
+import dev.tr7zw.itemswapper.packets.serverbound.RefillItemPayload;
+import dev.tr7zw.itemswapper.packets.serverbound.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import net.minecraft.core.NonNullList;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 public class ServerItemHandler {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
-    private static final ConfigManager configManager = ConfigManager.getInstance();
+    private static final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
         if (configManager.getConfig().disableShulkers) {
@@ -63,7 +63,7 @@ public class ServerItemHandler {
                     boolean boxChanged = false;
                     for (int entry = 0; entry < content.size(); entry++) {
                         ItemStack boxItem = content.get(entry);
-                        if (ServerUtil.isSame(boxItem, target)) {
+                        if (isSame(boxItem, target)) {
                             // same, use to restock
                             int amount = Math.min(space, boxItem.getCount());
                             target.setCount(target.getCount() + amount);
@@ -83,6 +83,19 @@ public class ServerItemHandler {
         } catch (Throwable th) {
             network_logger.error("Error handeling network packet!", th);
         }
+    }
+
+    private boolean isSame(ItemStack a, ItemStack b) {
+        //? if < 1.17.0 {
+
+        // return ItemStack.isSame(a, b);
+        //? } else if <= 1.20.4 {
+
+        /*return ItemStack.isSameItemSameTags(a, b);
+         *///? } else {
+
+        return ItemStack.isSameItemSameComponents(a, b);
+        //? }
     }
 
 }

@@ -18,8 +18,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.JukeboxPlayable;
 import net.minecraft.world.item.JukeboxSong;
 //? } else {
-/*
-import net.minecraft.tags.ItemTags;
+
+/*import net.minecraft.tags.ItemTags;
 *///? }
 
 public class RecordNameProvider implements NameProvider {
@@ -30,8 +30,8 @@ public class RecordNameProvider implements NameProvider {
 
         return item.getComponents().has(DataComponents.JUKEBOX_PLAYABLE);
         //? } else {
-        /*
-        return item.is(ItemTags.MUSIC_DISCS);
+
+        /*return item.is(ItemTags.MUSIC_DISCS);
         *///? }
     }
 
@@ -55,8 +55,8 @@ public class RecordNameProvider implements NameProvider {
 
         return item.getStyledHoverName();
         //? } else {
-        /*
-        return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
+
+        /*return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
         *///? }
     }
 

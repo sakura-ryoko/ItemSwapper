@@ -1,5 +1,7 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -7,10 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 
 import fi.dy.masa.litematica.materials.MaterialCache;
 import fi.dy.masa.litematica.util.RayTraceUtils;
@@ -28,14 +27,15 @@ public class LitematicaMixin {
     @Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
     private static void doSchematicWorldPickBlockHook(boolean closest, Minecraft mc,
             CallbackInfoReturnable<Boolean> ci) {
-        if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
+        if (ConfigHolder.getInstance().getGeneral().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(mc.player.getMainHandItem().getItem());
-    
+
             if (list != null && (list.getId().equals(getResourceLocation("itemswapper", "v2/weapons"))
                     || list.getId().equals(getResourceLocation("itemswapper", "v2/tools")))) {
-    
-                if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
+
+                if (ConfigHolder.getInstance().getGeneral()
+                        .getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip Litematica logic
                     ci.setReturnValue(true);
                     ci.cancel();
@@ -45,7 +45,7 @@ public class LitematicaMixin {
             }
         }
         // pickblock from shulker
-    
+
         BlockPos pos;
         pos = RayTraceUtils.getSchematicWorldTraceIfClosest(mc.level, mc.player, 6);
         if (pos != null) {
@@ -53,7 +53,7 @@ public class LitematicaMixin {
             if (world != null) {
                 BlockState state = world.getBlockState(pos);
                 ItemStack stack = MaterialCache.getInstance().getRequiredBuildItemForState(state, world, pos);
-                ItemUtil.grabItem(stack.getItem(), false);
+                ItemSwapperSharedMod.instance.getItemManager().grabItem(stack.getItem(), false);
                 ci.setReturnValue(true);
                 ci.cancel();
             }

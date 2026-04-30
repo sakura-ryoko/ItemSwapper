@@ -6,9 +6,10 @@ import java.util.Map.Entry;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.*;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
+import dev.tr7zw.transition.config.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.*;
@@ -19,6 +20,7 @@ import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 public class ItemGroupManager {
 
+    private static final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private final Map<Identifier, ItemGroup> groupMapping = new HashMap<>();
     private final Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
     private final Map<Identifier, ItemList> listKeyMapping = new HashMap<>();
@@ -87,7 +89,7 @@ public class ItemGroupManager {
             }
         }
         // check if it's a valid container that can be opened
-        if (current == null && slot != -1 && !ConfigManager.getInstance().getConfig().disableShulkers) {
+        if (current == null && slot != -1 && !configManager.getConfig().disableShulkers) {
             ContainerProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
                     .getContainerProvider(clicked.getItem());
             if (provider != null) {

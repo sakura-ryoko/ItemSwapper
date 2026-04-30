@@ -4,8 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.api.Event;
-import dev.tr7zw.itemswapper.api.EventFactory;
+import dev.tr7zw.transition.event.*;
 
 public class ItemSwapperClientAPI {
 

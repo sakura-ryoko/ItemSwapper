@@ -6,23 +6,20 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
+import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class RestockShortcut implements Shortcut {
+public record RestockShortcut() implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(),
+    private static final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(),
             ComponentProvider.translatable("text.itemswapper.restockAll"));
-    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.restockAll.tooltip");
-
-    public RestockShortcut() {
-
-    }
+    private static final Component hoverText = ComponentProvider.translatable("text.itemswapper.restockAll.tooltip");
 
     @Override
     public Icon getIcon() {
@@ -36,7 +33,7 @@ public class RestockShortcut implements Shortcut {
             ItemStack item = items.get(i);
             int space = item.getMaxStackSize() - item.getCount();
             if (space > 0) {
-                NetworkUtil.refillItem(i);
+                ClientNetworkUtil.sendPacket(new RefillItemPayload(i));
             }
         }
         return true;

@@ -5,9 +5,10 @@ import java.util.List;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -16,7 +17,7 @@ public abstract class ItemGridWidget implements GuiWidget {
 
     protected final Minecraft minecraft = Minecraft.getInstance();
     protected final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    protected final ConfigManager configManager = ConfigManager.getInstance();
+    protected final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     protected final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     protected final List<GuiSlot> slots = new ArrayList<>();
     protected WidgetArea widgetArea = new WidgetArea(0, 0, 128, 128, null, 0, 0);
@@ -38,13 +39,13 @@ public abstract class ItemGridWidget implements GuiWidget {
                     itemRenderList, lateRenderList, overwrideAvailable);
         }
         //? if < 1.21.4 {
-        /*
-        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+
+        /*com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         *///? }
         itemRenderList.forEach(Runnable::run);
         //? if < 1.21.4 {
-        /*
-        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+
+        /*com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         *///? }
         lateRenderList.forEach(Runnable::run);
     }
@@ -57,8 +58,8 @@ public abstract class ItemGridWidget implements GuiWidget {
 
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 0xFFFFFFFF);
             //? } else if >= 1.20.2 {
-            /*
-            graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 29, 24, 256, 256);
+
+            /*graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 29, 24, 256, 256);
             *///? } else {
             /*
             graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24, 256, 256);
@@ -68,8 +69,8 @@ public abstract class ItemGridWidget implements GuiWidget {
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
             //? if < 1.21.6 {
-            /*
-            graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
+
+            /*graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
             *///? }
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }

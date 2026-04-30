@@ -55,7 +55,7 @@
             "dev.tr7zw.itemswapper.ItemSwapperMod"
         ],
         "server": [
-            "dev.tr7zw.itemswapper.ItemSwapperServerMod"
+            "dev.tr7zw.itemswapper.server.ItemSwapperServerMod"
         ],
         "modmenu": [
             "dev.tr7zw.itemswapper.ItemSwapperModMenu"

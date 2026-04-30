@@ -5,15 +5,11 @@
     "compatibilityLevel": "JAVA_17",
     "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
     "mixins": [
-        "PlayerListMixin",
-        "ServerboundCustomPayloadPacketMixin",
-        "ServerGamePacketListenerImplMixin"
+        "PlayerListMixin"
     ],
     "client": [
         "AbstractContainerScreenMixin",
-        "ClientboundCustomPayloadPacketMixin",
         "ClientLevelMixin",
-        "ClientPacketListenerMixin",
         "ContainerScreenMixin",
         "InstrumentItemMixin",
         "KeyboardHandlerMixin",

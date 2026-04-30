@@ -31,7 +31,7 @@ public class ShulkerContainerProvider implements ContainerProvider {
 
     @Override
     public List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId) {
-        if (!ItemSwapperSharedMod.instance.areShulkersEnabled()) {
+        if (!ItemSwapperSharedMod.instance.getClientUiManager().areShulkersEnabled()) {
             return Collections.emptyList();
         }
         List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);
@@ -51,7 +51,7 @@ public class ShulkerContainerProvider implements ContainerProvider {
 
     @Override
     public NonNullList<AvailableSlot> getItemStacks(ItemStack itemStack, int slotId) {
-        if (!ItemSwapperSharedMod.instance.areShulkersEnabled()) {
+        if (!ItemSwapperSharedMod.instance.getClientUiManager().areShulkersEnabled()) {
             return NonNullList.create();
         }
         List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);

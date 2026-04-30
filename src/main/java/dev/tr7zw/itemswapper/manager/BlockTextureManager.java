@@ -43,14 +43,14 @@ public class BlockTextureManager {
                     //? if >= 1.21.5 {
             
                     .particleIcon();
-            //? } else {
-            /^
-                    .getParticleIcon();
+                    //? } else {
+            
+                    /^.getParticleIcon();
             ^///? }
             *///? }
             if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
-                    if (e.getKey()/*? >= 1.21.11 {*/ .identifier() /*?} else {*//* .location() *//*?}*/.toString()
+                    if (e.getKey()/*? >= 1.21.11 {*/ .identifier() /*?} else {*/ /*.location() *//*?}*/.toString()
                             .contains(key)) {
                         return;
                     }
@@ -61,8 +61,8 @@ public class BlockTextureManager {
                 colorMap.put(e.getValue(),
                         ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
                 //? } else {
-                /*
-                colorMap.put(e.getValue(),
+
+                /*colorMap.put(e.getValue(),
                         ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
                 *///? }
                    //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);

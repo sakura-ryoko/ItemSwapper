@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.compat.ControlifySupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
-import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ContainerPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
@@ -42,6 +40,7 @@ import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.transition.config.*;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
@@ -79,7 +78,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     @Setter
     private boolean hideClearSlotShortcut = false;
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
 
     private SwitchItemOverlay() {
         super(ComponentProvider.empty());
@@ -101,7 +100,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (configManager.getConfig().experimentalAutoPalette) {
             shortcutList.add(new BlockColorShortcut(null, 0));
         }
-        if (ItemSwapperSharedMod.instance.isEnableRefill()) {
+        if (ItemSwapperSharedMod.instance.getClientUiManager().isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
         if (configManager.getConfig().showOpenInventoryButton) {
@@ -266,21 +265,21 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
             //? } else if >= 1.21.2 {
 
-            // RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-            //? } else {
-            /*
-            RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+            /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+            *///? } else {
+
+            /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             *///? }
                //? if < 1.21.6 {
-               /*
-               renderContext.getPose().pushPose();
-               renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
-               *///? }
+
+            /*renderContext.getPose().pushPose();
+            renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
+            *///? }
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             //? if < 1.21.6 {
-            /*
-            renderContext.getPose().popPose();
+
+            /*renderContext.getPose().popPose();
             *///? }
         }
     }

@@ -10,16 +10,11 @@ import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
 
-public class OpenInventoryShortcut implements Shortcut {
+public record OpenInventoryShortcut(SwitchItemOverlay overlay) implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(),
+    private static final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(),
             ComponentProvider.translatable("text.itemswapper.openInventory"));
-    private final SwitchItemOverlay overlay;
-    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.openInventory.tooltip");
-
-    public OpenInventoryShortcut(SwitchItemOverlay overlay) {
-        this.overlay = overlay;
-    }
+    private static final Component hoverText = ComponentProvider.translatable("text.itemswapper.openInventory.tooltip");
 
     @Override
     public Icon getIcon() {
@@ -28,7 +23,7 @@ public class OpenInventoryShortcut implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        ItemSwapperSharedMod.openInventoryScreen();
+        ItemSwapperSharedMod.instance.getClientUiManager().openInventoryScreen();
         return true;
     }
 

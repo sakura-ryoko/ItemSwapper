@@ -25,7 +25,7 @@ public class InstrumentItemNameProvider implements NameProvider {
                 .getOptionalInstrument(item).flatMap(Holder::unwrapKey);
         if (optional.isPresent()) {
             return Component.translatable(Util.makeDescriptionId("instrument",
-                    optional.get()/*? >= 1.21.11 {*/ .identifier() /*?} else {*//* .location() *//*?}*/));
+                    optional.get()/*? >= 1.21.11 {*/ .identifier() /*?} else {*/ /*.location() *//*?}*/));
         }
         return item.getHoverName();
     }
