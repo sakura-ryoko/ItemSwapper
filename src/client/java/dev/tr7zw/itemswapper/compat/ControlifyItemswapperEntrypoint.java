@@ -1,5 +1,4 @@
-//? if < 26.1 {
-/*package dev.tr7zw.itemswapper.compat;
+package dev.tr7zw.itemswapper.compat;
 
 import org.joml.Vector2d;
 
@@ -14,9 +13,9 @@ import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUIAbstractInput;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 //? if = 1.20.2 || < 1.20.0 {
-/^
+/*
 import dev.isxander.controlify.controller.Controller;
-^///? } else {
+*///? } else {
 
 import dev.isxander.controlify.controller.ControllerEntity;
 //? }
@@ -39,21 +38,21 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
     //? if >= 1.20.0 && < 1.21.10 {
 
-    /^@Override
+    /*@Override
     public void onControlifyPreInit(ControlifyApi arg0) {
         ControlifySupport.getInstance().init();
         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
     }
-    ^///? } else if < 1.20.10 {
-    /^
+    *///? } else if < 1.20.10 {
+    /*
     @Override
     public void onControlifyPreInit(ControlifyApi arg0) {
         ControlifySupport.getInstance().init();
         ScreenProcessorProvider.REGISTRY.register(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
         ScreenProcessorProvider.REGISTRY.register(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
     }
-    ^///? }
+    *///? }
 
     @Override
     public void onControllersDiscovered(ControlifyApi arg0) {
@@ -75,9 +74,9 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
         @Override
         // why does 1.20.2 not have the 2.0 update?
         //? if = 1.20.2 || < 1.20.0 {
-        /^
+        /*
         protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
-            ^///? } else {
+            *///? } else {
 
         protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
             //? }
@@ -100,4 +99,3 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
     }
 
 }
-*///? }
