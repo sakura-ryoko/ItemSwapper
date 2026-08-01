@@ -27,7 +27,7 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
     @Override
     public void onControlifyInit(dev.isxander.controlify.api.entrypoint.InitContext arg0) {
     }
-    
+
     @Override
     public void onControlifyPreInit(dev.isxander.controlify.api.entrypoint.PreInitContext arg0) {
         ControlifySupport.getInstance().init();
