@@ -7,9 +7,9 @@ import lombok.*;
 public class ConfigHolder {
     @Getter
     private final static ConfigHolder instance = new ConfigHolder();
-    private final ConfigManager<Config> general = new ConfigManager<>("itemswapper.json", Config::new,
+    private final ConfigManager<Config> general = new ConfigManager<>("itemswapper", Config::new,
             ConfigUpgrader::upgradeConfig);
-    private final ConfigManager<CacheServerAddresses> serverCache = new ConfigManager<>("itemswapper-server-cache.json",
+    private final ConfigManager<CacheServerAddresses> serverCache = new ConfigManager<>("itemswapper-server-cache",
             CacheServerAddresses::new, null);
 
     public void save() {
