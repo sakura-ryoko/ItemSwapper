@@ -4,7 +4,6 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
-import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
@@ -72,7 +71,7 @@ public record LinkShortcut(Identifier nextId, Component displayName, Item displa
     @Override
     public boolean isVisible() {
         Page page = manager.getPage(nextId);
-        return page != null && !(page instanceof NoPage);
+        return page != null && page.isVisible();
     }
 
     @Override

@@ -257,15 +257,30 @@ public class ItemGroupManager {
     }
 
     public sealed interface Page {
+        default boolean isVisible() {
+            return true;
+        };
     }
 
     public record ItemGroupPage(ItemGroup group) implements Page {
+        @Override
+        public boolean isVisible() {
+            return group.getItems().length != 0;
+        }
     }
 
     public record ListPage(ItemList items) implements Page {
+        @Override
+        public boolean isVisible() {
+            return items.getItems().length != 0;
+        }
     }
 
     public record NoPage() implements Page {
+        @Override
+        public boolean isVisible() {
+            return false;
+        }
     }
 
     public record TexturePage(UnpackedColor[] color, UnpackedColor sideBase) implements Page {
